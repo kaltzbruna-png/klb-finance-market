@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1240">
+  <meta name="description" content="Mercado e finanças compartilhadas da sua casa, em tempo real.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <title>KLB Finance Market</title>
+  <style>
+    :root { --ink:#13215a; --navy:#0a1240; --navy-mid:#152560; --blue:#1265f5; --electric:#1b9fff; --gold:#e8a820; --gold-light:#ffd76a; --lime:#d9ff50; --cloud:#f4f7ff; --muted:#6c769e; --line:#dce4fa; --white:#fff; --danger:#e43b4f; }
+    * { box-sizing:border-box; } html { background:var(--navy); } body { margin:0; min-width:320px; min-height:100vh; background:radial-gradient(circle at 8% 0%,#1a3285 0,transparent 32%),radial-gradient(circle at 92% 100%,#0d3d8a 0,transparent 28%),linear-gradient(160deg,#0a1240,#07102f 70%); color:var(--ink); font-family:"Space Grotesk",sans-serif; }
+    body:before,body:after { content:""; position:fixed; z-index:-1; border-radius:50%; filter:blur(2px); opacity:.28; } body:before { width:280px;height:280px;right:-90px;top:10%;background:radial-gradient(circle,var(--electric),transparent 68%); } body:after { width:220px;height:220px;left:-80px;bottom:4%;background:radial-gradient(circle,var(--gold),transparent 70%); }
+    button,input { font:inherit; } button { cursor:pointer; } .shell { min-height:100vh; padding:clamp(14px,3vw,38px); display:grid; place-items:center; }
+    .receipt { width:min(100%,1060px); min-height:min(760px,calc(100vh - 28px)); overflow:hidden; position:relative; border-radius:32px; background:var(--cloud); box-shadow:0 30px 75px #03082888,0 0 0 1px #ffffff36; }
+    .view { min-height:min(760px,calc(100vh - 28px)); padding:clamp(30px,6vw,76px); display:grid; align-content:center; } .mono { font-family:"Space Mono",monospace; } h1,h2,p { margin-top:0; } h1 { color:var(--navy); font-size:clamp(37px,6vw,68px); line-height:.96; letter-spacing:-.065em; margin-bottom:17px; } h2 { font-size:29px; letter-spacing:-.04em; margin-bottom:8px; }
+    .eyebrow { color:var(--blue); font:700 11px/1.2 "Space Mono",monospace; letter-spacing:.14em; text-transform:uppercase; margin:0 0 12px; } .brand-note { color:var(--gold); font:700 11px "Space Mono",monospace; letter-spacing:.12em; text-transform:uppercase; margin:-4px 0 24px; } .intro { color:var(--muted); font-size:17px; line-height:1.52; max-width:47ch; margin-bottom:30px; }
+    .welcome { grid-template-columns:minmax(0,1fr) minmax(315px,440px); gap:clamp(35px,8vw,104px); align-items:center; } .hero-logo { position:relative; } .hero-logo:after { content:""; position:absolute; width:210px;height:210px;z-index:0;left:6%;bottom:-8%;background:radial-gradient(circle at 40% 40%,var(--gold-light),transparent 68%);border-radius:50%;opacity:.42; } .logo-card { position:relative;z-index:1;width:min(100%,475px);filter:drop-shadow(0 20px 28px #0a124055);animation:float 4.5s ease-in-out infinite; } @keyframes float { 50%{transform:translateY(-10px) rotate(1deg)} }
+    .form-panel { background:var(--white); padding:clamp(23px,4vw,37px); border:1px solid var(--line); border-radius:24px; box-shadow:0 13px 35px #1a37720d; } .form-stack { display:grid; gap:10px; } label { color:var(--muted); font:700 10px "Space Mono",monospace; letter-spacing:.13em; text-transform:uppercase; } input { width:100%; min-height:55px; border:1.5px solid var(--line); background:#fbfcff; border-radius:14px; color:var(--navy); padding:14px 15px; outline:none; transition:border .15s,box-shadow .15s; } input:focus { border-color:var(--blue); box-shadow:0 0 0 4px #1265f51c; } input::placeholder { color:#9ba5c5; } .code-input { font:700 17px "Space Mono",monospace; letter-spacing:.16em; text-transform:uppercase; }
+    .button { min-height:53px; border:0; border-radius:14px; background:linear-gradient(135deg,var(--navy-mid),var(--blue)); color:white; padding:12px 17px; display:inline-flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 18px #1265f538; font-weight:700; transition:transform .16s,box-shadow .16s,filter .16s; } .button:hover { transform:translateY(-2px);box-shadow:0 12px 24px #1265f552;filter:saturate(1.08); }.button:active { transform:translateY(0); }.button[disabled]{opacity:.55;cursor:wait}
+    .button--outline { color:var(--blue); background:#eef4ff; box-shadow:none; border:1px solid #cfe0ff; }.button--outline:hover { box-shadow:none;background:#e6efff; }.button--stamp { background:#fff0f1;color:var(--danger);border-color:#ffd1d7; }.button--small{min-height:38px;padding:8px 11px;font-size:12px}.button--icon{width:38px;padding:0;font-size:17px}.divider { display:flex;align-items:center;gap:12px;margin:25px 0;color:#a3adca;font:700 11px "Space Mono",monospace;text-transform:uppercase;letter-spacing:.12em}.divider:before,.divider:after{content:"";height:1px;flex:1;background:var(--line)}.help{margin:18px 0 0;color:var(--muted);font-size:13px;line-height:1.5}.linkish{border:0;padding:0;background:transparent;color:var(--blue);font-weight:600;text-decoration:underline;cursor:pointer}.config-box{padding:17px;border-radius:16px;background:#edf4ff;color:var(--muted);line-height:1.55}.config-box code{color:var(--navy);font-family:"Space Mono",monospace;font-size:12px}
+    .loading { min-height:360px; display:grid;place-items:center;color:var(--blue);font:700 12px "Space Mono",monospace;letter-spacing:.1em;text-transform:uppercase; } .loading:before { content:"";width:42px;height:42px;border:4px solid #dce8ff;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite; }@keyframes spin{to{transform:rotate(360deg)}}
+    .app-view { min-height:min(760px,calc(100vh - 28px)); display:grid; grid-template-columns:290px minmax(0,1fr); grid-template-rows:auto 1fr; } .app-head { padding:28px 25px 22px; background:linear-gradient(165deg,#1a3285 0%,#0f1f5c 48%,#0a1240 100%); color:white; display:flex;flex-direction:column;align-items:stretch;position:relative;overflow:hidden;grid-row:span 2; } .app-head:before{content:"";position:absolute;width:240px;height:240px;border:22px solid rgba(232,168,32,.14);border-radius:50%;right:-120px;top:-90px;pointer-events:none}.app-head:after{content:"";position:absolute;width:180px;height:180px;background:radial-gradient(circle,rgba(27,159,255,.22),transparent 70%);border-radius:50%;left:-70px;bottom:-40px;pointer-events:none}.app-head__top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;position:relative;z-index:1;margin-bottom:14px}.app-logo { position:relative;z-index:1;width:min(100%,196px);margin:0;filter:drop-shadow(0 12px 20px #02072466);object-fit:contain;object-position:left center }.header-actions{position:relative;z-index:1;display:flex;gap:7px;margin-top:auto;padding-top:18px}.header-actions .button--outline{background:#ffffff14;color:white;border-color:#ffffff40}.code-chip { position:relative;z-index:1;flex-shrink:0;width:auto;margin:0;border:1px solid #ffffff42;border-radius:12px;background:#ffffff16;color:white;padding:10px 12px;text-align:left;font:700 10px "Space Mono",monospace;letter-spacing:.1em;transition:background .15s;backdrop-filter:blur(6px)}.code-chip:hover{background:#ffffff24}.code-chip span{margin-left:6px;color:var(--gold-light);font-size:14px}
+    .list-area{padding:32px clamp(22px,5vw,64px) 100px;background:linear-gradient(140deg,#f9fbff,#f2f6ff)}.list-meta{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}.list-meta strong{display:block;color:var(--navy);font-size:26px;letter-spacing:-.05em}.list-meta span{color:var(--muted);font-size:13px}.list-meta .count{display:grid;place-items:center;min-width:39px;height:32px;padding:0 9px;border-radius:99px;background:var(--lime);color:#263d00;font:700 12px "Space Mono",monospace}
+    ul{list-style:none;padding:0;margin:0}.items{display:grid;gap:10px}.item{min-height:70px;display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center;padding:11px 13px;background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:0 4px 12px #213d7c08;transition:transform .15s,border .15s,opacity .15s}.item:hover{transform:translateY(-1px);border-color:#bcd2ff}.check{width:27px;height:27px;background:#f5f8ff;border:2px solid #c5d2f4;border-radius:10px;color:transparent;padding:0;display:grid;place-items:center;font-size:15px;transition:all .22s cubic-bezier(.2,.8,.2,1)}.check:hover{border-color:var(--blue);background:#edf4ff}.item-name{overflow-wrap:anywhere;font-size:16px;font-weight:600;color:var(--navy)}.item-qty{display:inline-block;min-width:2.1em;margin-right:6px;padding:2px 7px;border-radius:8px;background:#eef4ff;color:var(--blue);font:700 12px "Space Mono",monospace;vertical-align:baseline}.item-detail{margin-top:3px;color:var(--muted);font-size:11px}.item-actions{display:flex;gap:4px;align-items:center}.item-edit{border:0;background:#eef4ff;color:var(--blue);width:31px;height:31px;border-radius:9px;font-size:13px;font-weight:700;padding:0}.item-edit:hover{background:#e3ecff}.item-delete{border:0;background:#f5f7fc;color:#a6b0ca;width:31px;height:31px;border-radius:9px;font-size:20px;line-height:1;padding:0}.item-delete:hover{background:#fff0f1;color:var(--danger)}.item--bought{background:#f7f9ff;opacity:.76}.item--bought .item-name{text-decoration:line-through;text-decoration-thickness:2px}.item--bought .check{border-color:#4aca71;background:#4aca71;color:white;box-shadow:0 4px 8px #4aca7140;transform:rotate(-5deg)}.stamp{justify-self:end;color:#278d48;font-size:10px;font-weight:700}
+    .empty{text-align:center;padding:54px 15px;color:var(--muted)}.empty-mark{margin:0 auto 14px;display:grid;place-items:center;width:68px;height:68px;border-radius:24px;background:linear-gradient(145deg,#d9ff50,#b9e932);color:#355000;font-size:32px;font-weight:700;box-shadow:0 10px 20px #b4e62c47}.empty p{margin:0;line-height:1.5;font-size:15px}.bought-section{margin-top:27px}.bought-toggle{width:100%;border:0;border-radius:14px;background:#e9effc;color:var(--navy);padding:13px 15px;display:flex;align-items:center;justify-content:space-between;text-align:left;font-size:13px;font-weight:700}.bought-toggle span+span{color:var(--blue);font-size:12px}.bought-section .items{margin-top:10px}.clear-row{display:flex;justify-content:flex-end;margin-top:12px}.add-bar{position:absolute;z-index:2;right:0;bottom:0;width:calc(100% - 290px);padding:14px clamp(22px,5vw,64px) calc(14px + env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr) 72px auto;gap:9px;border-top:1px solid var(--line);background:#ffffffed;backdrop-filter:blur(14px)}.add-bar input{min-height:49px;background:white}.add-bar .qty-input{text-align:center;font:700 14px "Space Mono",monospace;padding:10px 6px}.add-bar .button{min-height:49px}
+    .toast-area{position:fixed;z-index:10;right:18px;bottom:18px;width:min(calc(100% - 36px),380px);display:grid;gap:8px;pointer-events:none}.toast{border-radius:14px;background:var(--navy);color:white;padding:14px 15px;border-left:5px solid var(--lime);box-shadow:0 14px 30px #03082745;font-size:13px;animation:toast-in .25s ease-out}.toast--error{border-color:var(--danger)}@keyframes toast-in{from{opacity:0;transform:translateY(12px)}}
+    .nav-menu{position:relative;z-index:1;display:grid;gap:6px;margin-top:8px}.nav-item{border:0;background:transparent;color:#c5d2ff;text-align:left;border-radius:13px;padding:11px 13px;font-weight:600;font-size:14px;transition:.16s;display:flex;align-items:center;gap:10px}.nav-item .nav-icon{display:inline-grid;place-items:center;width:22px;height:22px;color:var(--gold-light);flex-shrink:0}.nav-item .nav-icon svg{width:18px;height:18px;display:block}.nav-item:hover,.nav-item--active{color:white;background:#ffffff1a}.nav-item--active{box-shadow:inset 3px 0 var(--gold)}.section-tabs{display:none;background:#f4f7ff;border-bottom:1px solid var(--line)}.finance-content{max-width:780px}.section-title{font-size:clamp(24px,5vw,28px);line-height:1.05;letter-spacing:-.06em;color:var(--navy);margin:0}.section-subtitle{margin:7px 0 22px;color:var(--muted);font-size:14px;line-height:1.45}.summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:20px}.summary-card{padding:16px 17px;border-radius:18px;background:var(--white);border:1px solid var(--line);box-shadow:0 6px 16px #213d7c0a}.summary-card--hero{grid-column:1/-1;background:linear-gradient(135deg,#1a3285 0%,#1265f5 55%,#1b9fff 100%);border:0;color:white;position:relative;overflow:hidden;padding-top:20px}.summary-card--hero:before{content:"";position:absolute;left:17px;top:14px;width:42px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light))}.summary-card--hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:var(--lime);right:-58px;top:-72px;opacity:.78}.summary-label{display:block;font:700 10px "Space Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}.summary-card--hero .summary-label{color:#d5e4ff}.summary-value{display:block;font-size:clamp(24px,6vw,28px);font-weight:700;letter-spacing:-.06em}.summary-note{position:relative;z-index:1;margin:8px 0 0;font-size:13px;color:#e8f0ff;max-width:36ch;line-height:1.45}.expense-form{display:grid;grid-template-columns:1.6fr .8fr 1fr .9fr auto;gap:8px;padding:13px;margin:4px 0 20px;border-radius:19px;background:white;border:1px solid var(--line)}.expense-form input{min-height:45px;padding:10px 11px;border-radius:11px}.expense-form .button{min-height:45px;padding:9px 13px;white-space:nowrap}.expense-item{grid-template-columns:1fr auto;gap:10px}.expense-main{min-width:0}.expense-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.expense-amount{font:700 17px "Space Mono",monospace;color:var(--navy);white-space:nowrap}.expense-detail{margin-top:5px;color:var(--muted);font-size:12px}.expense-actions{display:flex;gap:4px;justify-content:end;margin-top:9px}.expense-edit{border:0;background:#eef4ff;color:var(--blue);border-radius:8px;padding:5px 8px;font-size:11px;font-weight:700}.expense-edit--delete{color:var(--danger);background:#fff0f1}.private-badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;background:#eef4ff;color:var(--navy-mid);padding:6px 10px;font:700 10px "Space Mono",monospace;letter-spacing:.04em;border:1px solid #cfe0ff}.bottom-nav{display:none!important}.app-body{min-width:0;grid-column:2}.market-content{max-width:780px}.app-head{overflow-y:auto}
+    @media(max-width:720px){.shell{padding:0}.receipt{min-height:100vh;border-radius:0;box-shadow:none}.welcome{grid-template-columns:1fr;gap:17px}.view{min-height:100vh;padding:31px 21px}.hero-logo{order:-1;width:82%;justify-self:center}.hero-logo:after{width:140px;height:140px}.form-panel{padding:22px}.app-view{min-height:100vh;display:flex;flex-direction:column;grid-template-columns:1fr;grid-template-rows:auto auto 1fr}.app-head{padding:16px 17px 12px;grid-row:auto;min-height:0}.app-head:before{width:160px;height:160px;right:-80px;top:-60px}.app-head:after{width:110px;height:110px;left:-50px;bottom:-30px}.app-head__top{margin-bottom:10px}.app-logo{width:min(54vw,188px)}.header-actions{position:absolute;right:17px;bottom:12px;margin:0;padding:0}.app-head .nav-menu{display:none}.section-tabs{display:block;padding:10px 12px 0;position:sticky;top:0;z-index:2}.section-tabs .nav-menu{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0;padding-bottom:10px}.section-tabs .nav-item{flex-direction:column;justify-content:center;gap:4px;color:var(--muted);padding:8px 4px 10px;text-align:center;font-size:10px;border-radius:14px}.section-tabs .nav-item .nav-icon{width:auto;height:auto;color:var(--blue)}.section-tabs .nav-item .nav-icon svg{width:17px;height:17px}.section-tabs .nav-item--active{color:var(--blue);background:#e8efff;box-shadow:none}.section-tabs .nav-item--active .nav-icon{color:var(--blue)}.app-body{grid-column:auto;padding-bottom:24px}.list-area{padding:22px 17px 100px}.item{min-height:65px}.list-meta strong{font-size:23px}.add-bar{width:100%;bottom:0;padding:11px 17px calc(11px + env(safe-area-inset-bottom))}.summary-grid{grid-template-columns:1fr}.expense-form{grid-template-columns:1fr 1fr}.expense-form input:first-child{grid-column:1/-1}.expense-form .button{grid-column:1/-1}.finance-content{padding-bottom:15px}} @media(min-width:721px){.welcome .form-panel{max-width:440px}.section-tabs{display:none}}
+  </style>
+</head>
+<body>
+  <main id="app" class="shell" aria-live="polite"></main>
+  <div id="toasts" class="toast-area" aria-live="assertive"></div>
+  <script src="config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  (() => {
+    "use strict";
+    const KLB = (() => {
+      const CONFIG = globalThis.KLB_CONFIG || {};
+      const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      const STORAGE_KEY = "klb-market-session";
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const escapeHtml = (value = "") => String(value).replace(/[&<>"']/g, char => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[char]));
+      const validName = value => String(value || "").trim().replace(/\s+/g, " ").slice(0, 30);
+      const validCode = value => String(value || "").toUpperCase().replace(/[^A-Z2-9]/g, "").slice(0, 6);
+      const isValidCode = code => /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/.test(code);
+      const configured = () => Boolean(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY);
+      const demoMode = () => CONFIG.MOCK_MODE === true;
+      const state = { session:null, items:[], sharedExpenses:[], personalExpenses:[], boughtOpen:false, activeSection:"market", client:null, channel:null, loading:false };
+      const getHashSession = () => {
+        const params = new URLSearchParams(location.hash.slice(1));
+        const code = validCode(params.get("c"));
+        const name = validName(params.get("n"));
+        return isValidCode(code) ? { code, name } : null;
+      };
+      const setSession = session => {
+        state.session = session;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+        location.hash = `c=${encodeURIComponent(session.code)}&n=${encodeURIComponent(session.name)}`;
+      };
+      const cachedSession = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); } catch { return null; } };
+      const clearSession = () => { localStorage.removeItem(STORAGE_KEY); history.replaceState(null, "", location.pathname + location.search); state.session = null; };
+      const humanDate = iso => { try { return new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}).format(new Date(iso)); } catch { return ""; } };
+      const generateCode = () => Array.from({length:6}, () => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]).join("");
+      const app = () => $("#app");
+      let audioContext = null;
+      const unlockAudio = () => {
+        try {
+          const Audio = globalThis.AudioContext || globalThis.webkitAudioContext;
+          if (!Audio) return;
+          audioContext ||= new Audio();
+          if (audioContext.state === "suspended") audioContext.resume().catch(() => {});
+        } catch {}
+      };
+      const playSound = (kind) => {
+        const notes = {
+          add: [[523, 0, .055], [659, .065, .075]],
+          bought: [[523, 0, .06], [784, .055, .11]],
+          unmark: [[523, 0, .09]],
+          delete: [[294, 0, .1]],
+          clear: [[659, 0, .055], [523, .06, .055], [392, .12, .09]],
+          error: [[196, 0, .09]]
+        };
+        try {
+          if (!audioContext || audioContext.state !== "running") return;
+          const now = audioContext.currentTime;
+          (notes[kind] || []).forEach(([frequency, delay, duration]) => {
+            const oscillator = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            oscillator.type = kind === "error" ? "triangle" : "sine";
+            oscillator.frequency.setValueAtTime(frequency, now + delay);
+            gain.gain.setValueAtTime(.0001, now + delay);
+            gain.gain.exponentialRampToValueAtTime(kind === "error" ? .025 : .045, now + delay + .012);
+            gain.gain.exponentialRampToValueAtTime(.0001, now + delay + duration);
+            oscillator.connect(gain).connect(audioContext.destination);
+            oscillator.start(now + delay);
+            oscillator.stop(now + delay + duration + .02);
+          });
+        } catch {}
+      };
+      const toast = (message, type = "success") => {
+        const element = document.createElement("div");
+        element.className = `toast${type === "error" ? " toast--error" : ""}`;
+        element.textContent = message;
+        $("#toasts").append(element);
+        if (type === "error") playSound("error");
+        setTimeout(() => element.remove(), 3800);
+      };
+      const layout = content => `<section class="receipt">${content}</section>`;
+      const button = (label, action, extra = "") => `<button type="button" class="button ${extra}" data-action="${action}">${label}</button>`;
+      const renderWelcome = () => {
+        app().innerHTML = layout(`<div class="view welcome"><div class="hero-copy"><p class="eyebrow">Casa em sintonia</p><h1>Mercado e<br>grana juntos.</h1><p class="brand-note">KLB Finance Market</p><p class="intro">Organize a sacola, as contas da casa e o que é só seu — no mesmo lugar.</p><div class="hero-logo"><img class="logo-card" src="icons/logo-transparent.png" alt="KLB Finance Market"></div></div><div class="form-panel"><h2>Bora organizar?</h2><p class="help">Crie o espaço da casa em segundos e chame alguém para dividir o dia a dia.</p><div class="form-stack"><label for="welcome-name">Seu nome</label><input id="welcome-name" maxlength="30" autocomplete="name" placeholder="Como podemos te chamar?" data-enter="create-list"><button type="button" class="button" data-action="create-list">Criar minha casa <span>→</span></button></div><div class="divider">ou entrar com código</div><div class="form-stack"><label for="join-code">Código da casa</label><input id="join-code" class="code-input" maxlength="6" autocapitalize="characters" autocomplete="off" placeholder="ABC234" data-enter="join-list"><button type="button" class="button button--outline" data-action="join-list">Entrar na casa</button></div><p class="help">Sem senha e sem cadastro. Só vocês e as contas.</p></div></div>`);
+        $("#welcome-name").focus();
+      };
+      const renderInvite = code => {
+        app().innerHTML = layout(`<div class="view welcome"><div class="hero-copy"><p class="eyebrow">Convite na sacola</p><h1>Vem<br>comprar?</h1><p class="intro">Uma lista compartilhada está esperando por você. Entrou, apareceu para os dois.</p><div class="hero-logo"><img class="logo-card" src="icons/logo-transparent.png" alt="KLB Market"></div></div><div class="form-panel"><p class="eyebrow">Código ${escapeHtml(code)}</p><h2>Você foi chamado!</h2><p class="help">Conta seu nome para a dupla saber quem marcou cada item.</p><div class="form-stack"><label for="invite-name">Seu nome</label><input id="invite-name" maxlength="30" autocomplete="name" placeholder="Seu nome por aqui" data-enter="accept-invite"><button type="button" class="button" data-action="accept-invite">Entrar na lista <span>→</span></button></div><p class="help"><button type="button" class="linkish" data-action="back-home">Usar outro código</button></p></div></div>`);
+        $("#invite-name").focus();
+      };
+      const renderConfig = () => {
+        app().innerHTML = layout(`<div class="view welcome"><div class="hero-copy"><p class="eyebrow">Tudo pronto por aqui</p><h1>Só falta<br>conectar.</h1><p class="intro">Quando o Supabase entrar em cena, cada risquinho da lista aparece na hora para quem está com você.</p><div class="hero-logo"><img class="logo-card" src="icons/logo-transparent.png" alt="KLB Market"></div></div><div class="form-panel"><h2>Ative a sincronização</h2><p class="help">A gente ainda não encontrou as credenciais do seu projeto.</p><div class="config-box">Abra <code>config.js</code> e preencha <code>SUPABASE_URL</code> e <code>SUPABASE_ANON_KEY</code>. Depois, recarregue esta página.</div><p class="help">Nada é enviado sem essa configuração.</p></div></div>`);
+      };
+      const renderLoading = () => { app().innerHTML = layout(`<div class="loading">Conferindo a lista…</div>`); };
+      const parseQuantity = value => {
+        const n = Number(String(value ?? "1").trim().replace(",", "."));
+        if (!Number.isFinite(n) || n <= 0) return null;
+        return Math.round(n * 100) / 100;
+      };
+      const formatQuantity = value => new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 2 }).format(Number(value ?? 1));
+      const itemTemplate = item => {
+        const detail = item.comprado ? `Comprado por ${escapeHtml(item.comprado_por || "alguém")} · ${humanDate(item.updated_at)}` : `Adicionado por ${escapeHtml(item.adicionado_por || "alguém")}`;
+        return `<li class="item${item.comprado ? " item--bought" : ""}"><button type="button" class="check" data-action="toggle-item" data-id="${escapeHtml(item.id)}" aria-label="${item.comprado ? "Desmarcar" : "Marcar"} ${escapeHtml(item.nome)}">${item.comprado ? "✓" : ""}</button><div><div class="item-name"><span class="item-qty">${formatQuantity(item.quantidade)}</span>${escapeHtml(item.nome)}</div><div class="item-detail">${detail}</div></div>${item.comprado ? `<span class="stamp">feito ✓</span>` : `<div class="item-actions"><button type="button" class="item-edit" data-action="edit-item" data-id="${escapeHtml(item.id)}" aria-label="Editar ${escapeHtml(item.nome)}">✎</button><button type="button" class="item-delete" data-action="delete-item" data-id="${escapeHtml(item.id)}" aria-label="Excluir ${escapeHtml(item.nome)}">×</button></div>`}</li>`;
+      };
+      const money = value => new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"}).format(Number(value || 0));
+      const navIcons = {
+        market: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.4 8.2H7.4L6 6Z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="19" r="1.2"/><circle cx="17" cy="19" r="1.2"/></svg>',
+        shared: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8 12a4 4 0 1 0-4-4"/><path d="M20 12a4 4 0 1 0-4-4"/><path d="M4 16.5c1.2-1.4 3-2.2 5-2.2"/><path d="M20 16.5c-1.2-1.4-3-2.2-5-2.2"/><path d="M12 12h0"/></svg>',
+        personal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 19c.8-3 3.2-5 6.5-5s5.7 2 6.5 5"/></svg>'
+      };
+      const nav = () => `<nav class="nav-menu">${[["market","Mercado"],["shared","Conta compartilhada"],["personal","Conta pessoal"]].map(([id,label])=>`<button type="button" class="nav-item ${state.activeSection===id?"nav-item--active":""}" data-action="nav-${id}"><span class="nav-icon">${navIcons[id]}</span>${label}</button>`).join("")}</nav>`;
+      const marketContent = () => {
+        const pending = state.items.filter(item => !item.comprado), bought = state.items.filter(item => item.comprado);
+        const empty = `<div class="empty"><span class="empty-mark">+</span><p>Prontos para encher a sacola?<br>Comece pelo que está faltando.</p></div>`;
+        return `<main class="list-area market-content"><div class="list-meta"><div><strong>Para comprar</strong><span>O que falta para vocês?</span></div><span class="count">${pending.length}</span></div>${pending.length ? `<ul class="items">${pending.map(itemTemplate).join("")}</ul>` : empty}${bought.length ? `<section class="bought-section"><button type="button" class="bought-toggle" data-action="toggle-bought"><span>✓ Já foram (${bought.length})</span><span>${state.boughtOpen ? "esconder −" : "ver itens +"}</span></button>${state.boughtOpen ? `<ul class="items">${bought.map(itemTemplate).join("")}</ul><div class="clear-row">${button("Limpar concluídos","clear-bought","button--outline button--small button--stamp")}</div>` : ""}</section>` : ""}</main><form class="add-bar" data-form="add-item"><input id="new-item" maxlength="60" autocomplete="off" placeholder="Ex.: café, tomate, pão…" aria-label="Novo item"><input id="new-qty" class="qty-input" inputmode="decimal" autocomplete="off" value="1" aria-label="Quantidade" placeholder="Qtd"><button class="button" type="submit">Adicionar <span>+</span></button></form>`;
+      };
+      const expenseItem = (expense, personal = false) => `<li class="item expense-item"><div class="expense-main"><div class="expense-top"><div class="item-name">${escapeHtml(expense.descricao)}</div><span class="expense-amount">${money(expense.valor)}</span></div><div class="expense-detail">${personal ? "Lançamento pessoal" : `Pago por ${escapeHtml(expense.pago_por)}`} · ${humanDate(expense.data || expense.created_at)}</div><div class="expense-actions"><button type="button" class="expense-edit" data-action="edit-expense" data-id="${escapeHtml(expense.id)}" data-private="${personal}">Editar</button><button type="button" class="expense-edit expense-edit--delete" data-action="delete-expense" data-id="${escapeHtml(expense.id)}" data-private="${personal}">Excluir</button></div></div></li>`;
+      const expenseForm = personal => `<form class="expense-form" data-form="${personal ? "add-personal-expense" : "add-shared-expense"}"><input id="${personal ? "personal" : "shared"}-description" maxlength="60" placeholder="Descrição"><input id="${personal ? "personal" : "shared"}-amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="R$ 0,00">${personal ? "" : `<input id="shared-payer" maxlength="30" value="${escapeHtml(state.session.name)}" placeholder="Quem pagou">`}<input id="${personal ? "personal" : "shared"}-date" type="date" value="${new Date().toISOString().slice(0,10)}"><button type="submit" class="button">Adicionar +</button></form>`;
+      const sharedContent = () => {
+        const total=state.sharedExpenses.reduce((sum,item)=>sum+Number(item.valor),0), paid=state.sharedExpenses.reduce((map,item)=>({...map,[item.pago_por]:(map[item.pago_por]||0)+Number(item.valor)}),{}), people=Object.keys(paid);
+        const balance=people.length>=2 ? (()=>{const [a,b]=people;const diff=paid[a]-paid[b];return diff===0?"Tudo certo: divisão equilibrada.":diff>0?`${escapeHtml(b)} deve ${money(diff/2)} para ${escapeHtml(a)}.`:`${escapeHtml(a)} deve ${money(Math.abs(diff)/2)} para ${escapeHtml(b)}.`})():"Adicione gastos de vocês dois para ver quem fica devendo.";
+        return `<main class="list-area finance-content"><p class="eyebrow">A dois</p><h2 class="section-title">Conta compartilhada</h2><p class="section-subtitle">Cada gasto entra pela metade para cada pessoa.</p><div class="summary-grid"><section class="summary-card summary-card--hero"><span class="summary-label">Acerto da dupla</span><strong class="summary-value">${money(total)}</strong><p class="summary-note">${balance}</p></section><section class="summary-card"><span class="summary-label">Sua parte do total</span><strong class="summary-value">${money(total/2)}</strong></section><section class="summary-card"><span class="summary-label">Lançamentos</span><strong class="summary-value">${state.sharedExpenses.length}</strong></section></div>${expenseForm(false)}${state.sharedExpenses.length?`<ul class="items">${state.sharedExpenses.map(item=>expenseItem(item)).join("")}</ul>`:`<div class="empty"><span class="empty-mark">◒</span><p>Nenhuma conta ainda.<br>Comece com o primeiro gasto da casa.</p></div>`}</main>`;
+      };
+      const personalContent = () => {
+        const routed=getHashSession(), activeName=routed?.name || state.session.name, samePerson=activeName===state.session.name, expenses=samePerson?state.personalExpenses:[], total=expenses.reduce((sum,item)=>sum+Number(item.valor),0);
+        return `<main class="list-area finance-content"><p class="eyebrow">Só seu</p><h2 class="section-title">Conta pessoal</h2><p class="section-subtitle"><span class="private-badge">Visível só para ${escapeHtml(activeName)}</span></p><div class="summary-grid"><section class="summary-card summary-card--hero"><span class="summary-label">Total pessoal</span><strong class="summary-value">${money(total)}</strong><p class="summary-note">Estes lançamentos não aparecem para a outra pessoa.</p></section><section class="summary-card"><span class="summary-label">Lançamentos</span><strong class="summary-value">${expenses.length}</strong></section></div>${expenseForm(true)}${expenses.length?`<ul class="items">${expenses.map(item=>expenseItem(item,true)).join("")}</ul>`:`<div class="empty"><span class="empty-mark">◉</span><p>Seu espaço está livre.<br>Registre algo só seu quando quiser.</p></div>`}</main>`;
+      };
+      const renderApp = () => {
+        const content = state.activeSection==="market" ? marketContent() : state.activeSection==="shared" ? sharedContent() : personalContent();
+        app().innerHTML = layout(`<div class="app-view"><header class="app-head"><div class="app-head__top"><img class="app-logo" src="icons/logo-transparent.png" alt="KLB Finance Market"><button type="button" class="code-chip" data-action="share-list" title="Compartilhar convite">CASA ${escapeHtml(state.session.code)} <span>↗</span></button></div><div class="header-actions">${button("↻","refresh-list","button--outline button--small button--icon")} ${button("Sair","leave-list","button--outline button--small")}</div>${nav()}</header><div class="section-tabs">${nav()}</div><div class="app-body">${content}</div></div>`);
+        if(state.activeSection==="market") $("#new-item").focus();
+      };
+      const normalizeItem = item => ({ ...item, nome:String(item.nome || "").slice(0,60), quantidade:parseQuantity(item.quantidade) ?? 1, comprado:Boolean(item.comprado) });
+      const sortItems = items => items.map(normalizeItem).sort((a,b) => Number(a.comprado)-Number(b.comprado) || new Date(a.created_at)-new Date(b.created_at));
+      const initClient = () => {
+        if (!state.client && configured() && globalThis.supabase) state.client = globalThis.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+        return state.client;
+      };
+      const mockStore = () => {
+        try { const data=JSON.parse(localStorage.getItem("klb-market-demo-data") || '{"lists":{},"items":{},"sharedExpenses":{},"personalExpenses":{}}'); return {...data,sharedExpenses:data.sharedExpenses||{},personalExpenses:data.personalExpenses||{}}; } catch { return {lists:{},items:{},sharedExpenses:{},personalExpenses:{}}; }
+      };
+      const saveMock = data => localStorage.setItem("klb-market-demo-data", JSON.stringify(data));
+      const api = {
+        async listExists(code) {
+          if (demoMode()) return Boolean(mockStore().lists[code]);
+          const { data, error } = await initClient().from("listas").select("codigo").eq("codigo", code).maybeSingle();
+          if (error) throw error; return Boolean(data);
+        },
+        async createList(code) {
+          if (demoMode()) { const data=mockStore(); if(data.lists[code]) throw new Error("Código já existe"); data.lists[code]={codigo:code}; saveMock(data); return; }
+          const { error } = await initClient().from("listas").insert({codigo:code}); if (error) throw error;
+        },
+        async getItems(code) {
+          if (demoMode()) return mockStore().items[code] || [];
+          const { data, error } = await initClient().from("itens_lista").select("*").eq("lista_codigo",code).order("created_at"); if(error) throw error; return data || [];
+        },
+        async addItem(item) {
+          if (demoMode()) { const data=mockStore(); const result={...item,id:crypto.randomUUID(),created_at:new Date().toISOString(),updated_at:new Date().toISOString()}; data.items[item.lista_codigo]=[...(data.items[item.lista_codigo]||[]),result]; saveMock(data); return result; }
+          const { data, error } = await initClient().from("itens_lista").insert(item).select().single(); if(error) throw error; return data;
+        },
+        async updateItem(id, changes) {
+          if (demoMode()) { const data=mockStore(); for(const code in data.items) data.items[code]=data.items[code].map(item=>item.id===id?{...item,...changes,updated_at:new Date().toISOString()}:item); saveMock(data); return; }
+          const { error } = await initClient().from("itens_lista").update(changes).eq("id",id); if(error) throw error;
+        },
+        async deleteItem(id) {
+          if (demoMode()) { const data=mockStore(); for(const code in data.items) data.items[code]=data.items[code].filter(item=>item.id!==id); saveMock(data); return; }
+          const { error } = await initClient().from("itens_lista").delete().eq("id",id); if(error) throw error;
+        },
+        async clearBought(code) {
+          if (demoMode()) { const data=mockStore(); data.items[code]=(data.items[code]||[]).filter(item=>!item.comprado); saveMock(data); return; }
+          const { error } = await initClient().from("itens_lista").delete().eq("lista_codigo",code).eq("comprado",true); if(error) throw error;
+        },
+        async getSharedExpenses(code) {
+          if (demoMode()) return mockStore().sharedExpenses[code] || [];
+          const { data,error }=await initClient().from("despesas_compartilhadas").select("*").eq("lista_codigo",code).order("data",{ascending:false}); if(error) throw error; return data||[];
+        },
+        async getPersonalExpenses(code, owner) {
+          if (demoMode()) return mockStore().personalExpenses[`${code}:${owner}`] || [];
+          const { data,error }=await initClient().from("despesas_pessoais").select("*").eq("lista_codigo",code).eq("dono",owner).order("data",{ascending:false}); if(error) throw error; return data||[];
+        },
+        async addExpense(expense, personal) {
+          const table=personal?"personalExpenses":"sharedExpenses";
+          if (demoMode()) { const data=mockStore(), key=personal?`${expense.lista_codigo}:${expense.dono}`:expense.lista_codigo, result={...expense,id:crypto.randomUUID(),created_at:new Date().toISOString(),updated_at:new Date().toISOString()}; data[table][key]=[result,...(data[table][key]||[])]; saveMock(data); return result; }
+          const { data,error }=await initClient().from(personal?"despesas_pessoais":"despesas_compartilhadas").insert(expense).select().single(); if(error) throw error; return data;
+        },
+        async updateExpense(id, changes, personal) {
+          const table=personal?"personalExpenses":"sharedExpenses";
+          if (demoMode()) { const data=mockStore(); Object.keys(data[table]).forEach(key=>data[table][key]=data[table][key].map(item=>item.id===id?{...item,...changes,updated_at:new Date().toISOString()}:item)); saveMock(data); return; }
+          const { error }=await initClient().from(personal?"despesas_pessoais":"despesas_compartilhadas").update(changes).eq("id",id); if(error) throw error;
+        },
+        async deleteExpense(id, personal) {
+          const table=personal?"personalExpenses":"sharedExpenses";
+          if (demoMode()) { const data=mockStore(); Object.keys(data[table]).forEach(key=>data[table][key]=data[table][key].filter(item=>item.id!==id)); saveMock(data); return; }
+          const { error }=await initClient().from(personal?"despesas_pessoais":"despesas_compartilhadas").delete().eq("id",id); if(error) throw error;
+        }
+      };
+      const refreshItems = async (quiet = false) => {
+        if (!state.session) return;
+        try { const [items,sharedExpenses,personalExpenses]=await Promise.all([api.getItems(state.session.code),api.getSharedExpenses(state.session.code),api.getPersonalExpenses(state.session.code,state.session.name)]); state.items=sortItems(items); state.sharedExpenses=sharedExpenses; state.personalExpenses=personalExpenses; renderApp(); if(!quiet) toast("Dados atualizados."); }
+        catch (error) { if (state.session) renderApp(); toast(`Não deu para atualizar: ${error.message || "tente de novo"}`, "error"); }
+      };
+      const subscribe = () => {
+        if (demoMode() || !state.client || state.channel) return;
+        state.channel = state.client.channel(`lista-${state.session.code}`)
+          .on("postgres_changes",{event:"*",schema:"public",table:"itens_lista",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
+          .on("postgres_changes",{event:"*",schema:"public",table:"despesas_compartilhadas",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
+          .on("postgres_changes",{event:"*",schema:"public",table:"despesas_pessoais",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
+          .subscribe(status => { if (status === "CHANNEL_ERROR") toast("A sincronização caiu. Use atualizar se precisar.", "error"); });
+      };
+      const disconnect = () => { if (state.channel && state.client) state.client.removeChannel(state.channel); state.channel=null; };
+      const openSession = async session => {
+        renderLoading();
+        try {
+          if (!await api.listExists(session.code)) { toast("Não encontramos essa lista. Confira o código.", "error"); clearSession(); renderWelcome(); return; }
+          setSession(session); await refreshItems(true); subscribe();
+        } catch (error) { renderWelcome(); toast(`Não foi possível abrir a lista: ${error.message || "erro de conexão"}`, "error"); }
+      };
+      const createList = async () => {
+        const name = validName($("#welcome-name")?.value);
+        if (name.length < 2) return toast("Conta seu nome para criar a lista.", "error");
+        const action = $("[data-action='create-list']"); action.disabled = true;
+        try {
+          let code, created=false;
+          for(let attempt=0;attempt<5 && !created;attempt++) { code=generateCode(); try { await api.createList(code); created=true; } catch(error) { if(attempt===4) throw error; } }
+          await openSession({code,name}); toast("Lista criada. Agora é só compartilhar!");
+        } catch(error) { toast(`Não conseguimos criar a lista: ${error.message || "tente novamente"}`, "error"); }
+        finally { if(action) action.disabled=false; }
+      };
+      const joinList = async () => {
+        const name = validName($("#welcome-name")?.value); const code = validCode($("#join-code")?.value);
+        if(name.length<2) return toast("Conta seu nome antes de entrar.", "error");
+        if(!isValidCode(code)) return toast("Use um código válido de 6 caracteres.", "error");
+        await openSession({code,name});
+      };
+      const acceptInvite = async () => {
+        const name=validName($("#invite-name")?.value); const invite=getHashSession();
+        if(name.length<2) return toast("Conta seu nome antes de entrar.", "error");
+        if(!invite) return renderWelcome();
+        await openSession({code:invite.code,name});
+      };
+      const addItem = async () => {
+        const input=$("#new-item"), qtyInput=$("#new-qty"), name=String(input?.value || "").trim().replace(/\s+/g," ").slice(0,60), quantidade=parseQuantity(qtyInput?.value);
+        if(!name) return toast("Escreva algo para adicionar.", "error");
+        if(quantidade===null) return toast("Quantidade inválida. Use números como 1 ou 1,5.", "error");
+        try { await api.addItem({lista_codigo:state.session.code,nome:name,quantidade,adicionado_por:state.session.name,comprado:false,comprado_por:null}); input.value=""; if(qtyInput) qtyInput.value="1"; await refreshItems(true); playSound("add"); }
+        catch(error) { toast(`Não foi possível adicionar: ${error.message || "tente de novo"}`, "error"); }
+      };
+      const editItem = async id => {
+        const item=state.items.find(current=>current.id===id); if(!item) return;
+        const nome=String(prompt("Nome do item:",item.nome) || "").trim().replace(/\s+/g," ").slice(0,60); if(!nome) return;
+        const quantidade=parseQuantity(prompt("Quantidade:", formatQuantity(item.quantidade))); if(quantidade===null) return toast("Quantidade inválida.", "error");
+        try { await api.updateItem(id,{nome,quantidade}); await refreshItems(true); playSound("add"); toast("Item atualizado."); }
+        catch { toast("Não foi possível editar o item.", "error"); }
+      };
+      const toggleItem = async id => {
+        const item=state.items.find(current=>current.id===id); if(!item) return;
+        try { await api.updateItem(id,{comprado:!item.comprado,comprado_por:!item.comprado?state.session.name:null}); await refreshItems(true); playSound(item.comprado ? "unmark" : "bought"); }
+        catch(error) { toast("Não foi possível atualizar esse item.", "error"); }
+      };
+      const amountFrom = value => Number(String(value || "").replace(",", "."));
+      const addExpense = async personal => {
+        const routed=getHashSession();
+        if(personal && routed?.name && routed.name!==state.session.name) return toast("Trocando de perfil, aguarde um instante.", "error");
+        const prefix=personal?"personal":"shared", descricao=String($(`#${prefix}-description`)?.value||"").trim().replace(/\s+/g," ").slice(0,60), valor=amountFrom($(`#${prefix}-amount`)?.value), data=$(`#${prefix}-date`)?.value;
+        const pago_por=personal?state.session.name:validName($("#shared-payer")?.value);
+        if(!descricao || !Number.isFinite(valor) || valor<=0 || !/^\d{4}-\d{2}-\d{2}$/.test(data||"") || pago_por.length<2) return toast("Preencha descrição, valor, pessoa e data.", "error");
+        try { await api.addExpense(personal?{lista_codigo:state.session.code,dono:state.session.name,descricao,valor,data}:{lista_codigo:state.session.code,descricao,valor,pago_por,data},personal); await refreshItems(true); playSound("add"); toast(personal?"Lançamento pessoal adicionado.":"Gasto da casa adicionado."); }
+        catch(error) { toast(`Não foi possível salvar: ${error.message || "tente de novo"}`, "error"); }
+      };
+      const editExpense = async (id, personal) => {
+        const item=(personal?state.personalExpenses:state.sharedExpenses).find(expense=>expense.id===id); if(!item) return;
+        const descricao=String(prompt("Descrição do lançamento:",item.descricao) || "").trim().slice(0,60); if(!descricao) return;
+        const valor=amountFrom(prompt("Valor em reais:",item.valor)); if(!Number.isFinite(valor)||valor<=0) return toast("Valor inválido.", "error");
+        const data=prompt("Data (AAAA-MM-DD):",item.data); if(!/^\d{4}-\d{2}-\d{2}$/.test(data||"")) return toast("Data inválida.", "error");
+        const pago_por=personal?null:validName(prompt("Quem pagou?",item.pago_por)); if(!personal&&pago_por.length<2) return toast("Nome inválido.", "error");
+        try { await api.updateExpense(id,personal?{descricao,valor,data}:{descricao,valor,data,pago_por},personal); await refreshItems(true); playSound("add"); toast("Lançamento atualizado."); }
+        catch { toast("Não foi possível editar o lançamento.", "error"); }
+      };
+      const share = async () => {
+        const url = `${location.origin}${location.pathname}#c=${encodeURIComponent(state.session.code)}`;
+        const shareData={title:"KLB Finance Market",text:`Vem organizar mercado e finanças comigo? Entre na minha casa KLB Finance com o código ${state.session.code}.`,url};
+        try { if(navigator.share) await navigator.share(shareData); else { await navigator.clipboard.writeText(url); toast("Convite copiado!"); } }
+        catch(error) { if(error.name!=="AbortError") { try { await navigator.clipboard.writeText(url); toast("Convite copiado!"); } catch { toast(`Código da lista: ${state.session.code}`); } } }
+      };
+      const actions = {
+        "create-list":createList, "join-list":joinList, "accept-invite":acceptInvite, "add-item":addItem,
+        "refresh-list":() => refreshItems(), "nav-market":()=>{state.activeSection="market";renderApp();}, "nav-shared":()=>{state.activeSection="shared";renderApp();}, "nav-personal":()=>{state.activeSection="personal";renderApp();}, "toggle-bought":() => {state.boughtOpen=!state.boughtOpen;renderApp();},
+        "toggle-item":button => toggleItem(button.dataset.id), "edit-item":button => editItem(button.dataset.id), "delete-item":async button => { if(confirm("Excluir este item da lista?")) { try { await api.deleteItem(button.dataset.id); await refreshItems(true); playSound("delete"); } catch { toast("Não foi possível excluir esse item.","error"); } } },
+        "clear-bought":async () => { if(confirm("Limpar todos os itens comprados?")) { try { await api.clearBought(state.session.code); await refreshItems(true); playSound("clear"); toast("Itens comprados removidos."); } catch { toast("Não foi possível limpar a lista.","error"); } } },
+        "edit-expense":button=>editExpense(button.dataset.id,button.dataset.private==="true"), "delete-expense":async button=>{const personal=button.dataset.private==="true";if(confirm("Excluir este lançamento?")){try{await api.deleteExpense(button.dataset.id,personal);await refreshItems(true);playSound("delete");toast("Lançamento excluído.");}catch{toast("Não foi possível excluir o lançamento.","error");}}},
+        "share-list":share, "leave-list":() => { disconnect(); clearSession(); renderWelcome(); toast("Você saiu da lista."); }, "back-home":() => { clearSession(); renderWelcome(); }
+      };
+      const bindEvents = () => {
+        document.addEventListener("click", event => { unlockAudio(); const target=event.target.closest("[data-action]"); if(target) { event.preventDefault(); const action=actions[target.dataset.action]; if(action) action(target); } });
+        document.addEventListener("keydown", event => { if(event.key==="Enter" && event.target.matches("[data-enter]")) { unlockAudio(); event.preventDefault(); const action=actions[event.target.dataset.enter]; if(action) action(event.target); } });
+        document.addEventListener("submit", event => { if(event.target.matches("[data-form='add-item'],[data-form='add-shared-expense'],[data-form='add-personal-expense']")) { unlockAudio(); event.preventDefault(); if(event.target.dataset.form==="add-item") addItem(); else addExpense(event.target.dataset.form==="add-personal-expense"); } });
+        const followHashSession = () => {
+          const next=getHashSession();
+          if(!next) {
+            if(state.session) { disconnect(); state.session=null; state.items=[]; state.sharedExpenses=[]; state.personalExpenses=[]; renderWelcome(); toast("Código da casa inválido.", "error"); }
+            return;
+          }
+          if(state.session && next.code===state.session.code && next.name===state.session.name) return;
+          disconnect();
+          state.session=null;
+          openSession(next);
+        };
+        window.addEventListener("hashchange", followHashSession);
+        window.addEventListener("popstate", followHashSession);
+        window.addEventListener("focus", followHashSession);
+        document.addEventListener("visibilitychange", () => { if(!document.hidden) followHashSession(); });
+        // Alguns navegadores de PWA não disparam hashchange ao voltar do seletor de URL.
+        // Esta checagem local não faz rede quando o link não mudou.
+        let observedHash=location.hash;
+        setInterval(() => {
+          if(location.hash!==observedHash) { observedHash=location.hash; followHashSession(); }
+        }, 350);
+      };
+      const start = () => {
+        if (!configured() && !demoMode()) return renderConfig();
+        initClient();
+        const hash=getHashSession(), cache=cachedSession();
+        if(hash?.code && !hash.name) return renderInvite(hash.code);
+        if(hash?.code && hash.name) return openSession(hash);
+        if(cache?.code && cache?.name) return openSession(cache);
+        renderWelcome();
+      };
+      const init = () => { bindEvents(); if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{}); start(); };
+      return { init };
+    })();
+    document.addEventListener("DOMContentLoaded", KLB.init);
+  })();
+  </script>
+</body>
+</html>
