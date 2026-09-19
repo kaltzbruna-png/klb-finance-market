@@ -1,4 +1,4 @@
-const CACHE_NAME = "klb-finance-v17";
+const CACHE_NAME = "klb-finance-v18";
 const APP_FILES = ["/", "/index.html", "/config.js", "/manifest.json", "/favicon.ico", "/icons/logo-transparent.png", "/icons/favicon-32.png", "/icons/apple-touch-icon.png", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/icon-maskable-192.png", "/icons/icon-maskable-512.png"];
 
 self.addEventListener("install", event => {
