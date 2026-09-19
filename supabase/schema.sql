@@ -18,9 +18,20 @@ create table if not exists public.itens_lista (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.periodos_compartilhados (
+  id uuid primary key default gen_random_uuid(),
+  lista_codigo text not null references public.listas(codigo) on delete cascade,
+  numero integer not null default 1 check (numero > 0),
+  status text not null default 'aberto' check (status in ('aberto', 'fechado')),
+  created_at timestamptz not null default now(),
+  fechado_em timestamptz,
+  updated_at timestamptz not null default now()
+);
+
 create table if not exists public.despesas_compartilhadas (
   id uuid primary key default gen_random_uuid(),
   lista_codigo text not null references public.listas(codigo) on delete cascade,
+  periodo_id uuid references public.periodos_compartilhados(id) on delete cascade,
   descricao text not null check (char_length(descricao) between 1 and 60),
   valor numeric(12,2) not null check (valor > 0),
   pago_por text not null check (char_length(pago_por) between 1 and 30),
@@ -64,6 +75,11 @@ create trigger itens_lista_updated_at
 before update on public.itens_lista
 for each row execute function public.atualiza_itens_lista_updated_at();
 
+drop trigger if exists periodos_compartilhados_updated_at on public.periodos_compartilhados;
+create trigger periodos_compartilhados_updated_at
+before update on public.periodos_compartilhados
+for each row execute function public.atualiza_itens_lista_updated_at();
+
 drop trigger if exists despesas_compartilhadas_updated_at on public.despesas_compartilhadas;
 create trigger despesas_compartilhadas_updated_at
 before update on public.despesas_compartilhadas
@@ -76,6 +92,7 @@ for each row execute function public.atualiza_itens_lista_updated_at();
 
 alter table public.listas enable row level security;
 alter table public.itens_lista enable row level security;
+alter table public.periodos_compartilhados enable row level security;
 alter table public.despesas_compartilhadas enable row level security;
 alter table public.despesas_pessoais enable row level security;
 alter table public.push_inscricoes enable row level security;
@@ -88,6 +105,10 @@ create policy "anon pode acessar listas" on public.listas
 
 drop policy if exists "anon pode acessar itens" on public.itens_lista;
 create policy "anon pode acessar itens" on public.itens_lista
+  for all to anon using (true) with check (true);
+
+drop policy if exists "anon pode acessar periodos compartilhados" on public.periodos_compartilhados;
+create policy "anon pode acessar periodos compartilhados" on public.periodos_compartilhados
   for all to anon using (true) with check (true);
 
 drop policy if exists "anon pode acessar despesas compartilhadas" on public.despesas_compartilhadas;
@@ -106,5 +127,6 @@ create policy "anon pode acessar push inscricoes" on public.push_inscricoes
   for all to anon using (true) with check (true);
 
 alter publication supabase_realtime add table public.itens_lista;
+alter publication supabase_realtime add table public.periodos_compartilhados;
 alter publication supabase_realtime add table public.despesas_compartilhadas;
 alter publication supabase_realtime add table public.despesas_pessoais;

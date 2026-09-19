@@ -32,7 +32,7 @@
     .empty{text-align:center;padding:54px 15px;color:var(--muted)}.empty-mark{margin:0 auto 14px;display:grid;place-items:center;width:68px;height:68px;border-radius:24px;background:linear-gradient(145deg,#d9ff50,#b9e932);color:#355000;font-size:32px;font-weight:700;box-shadow:0 10px 20px #b4e62c47}.empty p{margin:0;line-height:1.5;font-size:15px}.bought-section{margin-top:27px}.bought-toggle{width:100%;border:0;border-radius:14px;background:#e9effc;color:var(--navy);padding:13px 15px;display:flex;align-items:center;justify-content:space-between;text-align:left;font-size:13px;font-weight:700}.bought-toggle span+span{color:var(--blue);font-size:12px}.bought-section .items{margin-top:10px}.clear-row{display:flex;justify-content:flex-end;margin-top:12px}.add-bar{position:absolute;z-index:2;right:0;bottom:0;width:calc(100% - 290px);padding:14px clamp(22px,5vw,64px) calc(14px + env(safe-area-inset-bottom));display:grid;grid-template-columns:minmax(0,1fr) 72px auto;gap:9px;border-top:1px solid var(--line);background:#ffffffed;backdrop-filter:blur(14px)}.add-bar input{min-height:49px;background:white}.add-bar .qty-input{text-align:center;font:700 14px "Space Mono",monospace;padding:10px 6px}.add-bar .button{min-height:49px}
     .toast-area{position:fixed;z-index:10;right:18px;bottom:18px;width:min(calc(100% - 36px),380px);display:grid;gap:8px;pointer-events:none}.toast{border-radius:14px;background:var(--navy);color:white;padding:14px 15px;border-left:5px solid var(--lime);box-shadow:0 14px 30px #03082745;font-size:13px;animation:toast-in .25s ease-out}.toast--error{border-color:var(--danger)}@keyframes toast-in{from{opacity:0;transform:translateY(12px)}}
     .nav-menu{position:relative;z-index:1;display:grid;gap:6px;margin-top:8px}.nav-item{border:0;background:transparent;color:#c5d2ff;text-align:left;border-radius:13px;padding:11px 13px;font-weight:600;font-size:14px;transition:.16s;display:flex;align-items:center;gap:10px}.nav-item .nav-icon{display:inline-grid;place-items:center;width:22px;height:22px;color:var(--gold-light);flex-shrink:0}.nav-item .nav-icon svg{width:18px;height:18px;display:block}.nav-item:hover,.nav-item--active{color:white;background:#ffffff1a}.nav-item--active{box-shadow:inset 3px 0 var(--gold)}.section-tabs{display:none;background:#f4f7ff;border-bottom:1px solid var(--line)}.finance-content{max-width:780px}.section-title{font-size:clamp(24px,5vw,28px);line-height:1.05;letter-spacing:-.06em;color:var(--navy);margin:0}.section-subtitle{margin:7px 0 22px;color:var(--muted);font-size:14px;line-height:1.45}.summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:20px}.summary-card{padding:16px 17px;border-radius:18px;background:var(--white);border:1px solid var(--line);box-shadow:0 6px 16px #213d7c0a}.summary-card--hero{grid-column:1/-1;background:linear-gradient(135deg,#1a3285 0%,#1265f5 55%,#1b9fff 100%);border:0;color:white;position:relative;overflow:hidden;padding-top:20px}.summary-card--hero:before{content:"";position:absolute;left:17px;top:14px;width:42px;height:3px;border-radius:2px;background:linear-gradient(90deg,var(--gold),var(--gold-light))}.summary-card--hero:after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;background:var(--lime);right:-58px;top:-72px;opacity:.78}.summary-label{display:block;font:700 10px "Space Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}.summary-card--hero .summary-label{color:#d5e4ff}.summary-value{display:block;font-size:clamp(24px,6vw,28px);font-weight:700;letter-spacing:-.06em}.summary-note{position:relative;z-index:1;margin:8px 0 0;font-size:13px;color:#e8f0ff;max-width:36ch;line-height:1.45}.expense-form{display:grid;grid-template-columns:1.6fr .8fr 1fr .9fr auto;gap:8px;padding:13px;margin:4px 0 20px;border-radius:19px;background:white;border:1px solid var(--line)}.expense-form input{min-height:45px;padding:10px 11px;border-radius:11px}.expense-form .button{min-height:45px;padding:9px 13px;white-space:nowrap}.expense-item{grid-template-columns:1fr auto;gap:10px}.expense-main{min-width:0}.expense-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.expense-amount{font:700 17px "Space Mono",monospace;color:var(--navy);white-space:nowrap}.expense-detail{margin-top:5px;color:var(--muted);font-size:12px}.expense-actions{display:flex;gap:4px;justify-content:end;margin-top:9px}.expense-edit{border:0;background:#eef4ff;color:var(--blue);border-radius:8px;padding:5px 8px;font-size:11px;font-weight:700}.expense-edit--delete{color:var(--danger);background:#fff0f1}.private-badge{display:inline-flex;align-items:center;gap:5px;border-radius:99px;background:#eef4ff;color:var(--navy-mid);padding:6px 10px;font:700 10px "Space Mono",monospace;letter-spacing:.04em;border:1px solid #cfe0ff}.bottom-nav{display:none!important}.app-body{min-width:0;grid-column:2}.market-content{max-width:780px}.app-head{overflow-y:auto}
-    .shared-report{margin:22px 0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--white);box-shadow:0 10px 28px #213d7c12}.report-header{padding:22px 18px 18px;background:linear-gradient(145deg,#1a3285 0%,#0f1f5c 55%,#0a1240 100%);color:white;text-align:center}.report-header img{width:min(160px,58%);margin:0 auto 10px;display:block;filter:drop-shadow(0 8px 16px #02072455)}.report-header h3{margin:0 0 4px;font-size:20px;letter-spacing:-.04em}.report-header p{margin:0;color:#d5e4ff;font-size:12px}.report-body{padding:16px 14px 18px;background:linear-gradient(180deg,#fbfcff,#f4f7ff)}.report-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.report-col h4{margin:0 0 10px;font-size:13px;color:var(--navy);letter-spacing:-.02em}.report-table{width:100%;border-collapse:collapse;font-size:11px;background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden}.report-table th,.report-table td{padding:8px 7px;border-bottom:1px solid #edf2ff;text-align:left;vertical-align:top}.report-table th{font:700 9px "Space Mono",monospace;text-transform:uppercase;color:var(--muted);background:#f7f9ff}.report-table tr:last-child td{border-bottom:0}.report-table .mono{font-family:"Space Mono",monospace;font-size:10px;white-space:nowrap}.report-col-sub{margin:8px 0 0;font-size:12px;color:var(--muted)}.report-col-sub strong{color:var(--navy)}.report-totals{margin-top:16px;padding:15px;border-radius:16px;background:white;border:1px solid var(--line)}.report-totals p{margin:0 0 8px;font-size:13px;color:var(--ink)}.report-totals p:last-child{margin-bottom:0}.report-deposit{margin-top:12px!important;padding-top:12px;border-top:2px dashed var(--line);font-size:17px!important;font-weight:700;color:var(--navy)}.report-deposit--ok{color:#278d48}.report-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.report-empty{padding:28px 12px;text-align:center;color:var(--muted);font-size:14px}
+    .period-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:0 0 18px;padding:12px 14px;border-radius:16px;background:#fff;border:1px solid var(--line)}.period-badge{display:inline-flex;padding:5px 10px;border-radius:99px;font:700 10px "Space Mono",monospace;letter-spacing:.06em;text-transform:uppercase}.period-badge--open{background:#e8f9ec;color:#257a3d}.period-badge--closed{background:#eef4ff;color:var(--blue)}.period-label{font-size:13px;color:var(--muted)}.period-actions{display:flex;flex-wrap:wrap;gap:8px;margin-left:auto}.shared-report{margin:22px 0;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--white);box-shadow:0 10px 28px #213d7c12}.report-header{padding:22px 18px 18px;background:linear-gradient(145deg,#1a3285 0%,#0f1f5c 55%,#0a1240 100%);color:white;text-align:center}.report-header img{width:min(160px,58%);margin:0 auto 10px;display:block;filter:drop-shadow(0 8px 16px #02072455)}.report-header h3{margin:0 0 4px;font-size:20px;letter-spacing:-.04em}.report-header p{margin:0;color:#d5e4ff;font-size:12px}.report-body{padding:16px 14px 18px;background:linear-gradient(180deg,#fbfcff,#f4f7ff)}.report-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.report-col h4{margin:0 0 10px;font-size:13px;color:var(--navy);letter-spacing:-.02em}.report-table{width:100%;border-collapse:collapse;font-size:11px;background:white;border:1px solid var(--line);border-radius:12px;overflow:hidden}.report-table th,.report-table td{padding:8px 7px;border-bottom:1px solid #edf2ff;text-align:left;vertical-align:top}.report-table th{font:700 9px "Space Mono",monospace;text-transform:uppercase;color:var(--muted);background:#f7f9ff}.report-table tr:last-child td{border-bottom:0}.report-table .mono{font-family:"Space Mono",monospace;font-size:10px;white-space:nowrap}.report-col-sub{margin:8px 0 0;font-size:12px;color:var(--muted)}.report-col-sub strong{color:var(--navy)}.report-totals{margin-top:16px;padding:15px;border-radius:16px;background:white;border:1px solid var(--line)}.report-totals p{margin:0 0 8px;font-size:13px;color:var(--ink)}.report-totals p:last-child{margin-bottom:0}.report-deposit{margin-top:12px!important;padding-top:12px;border-top:2px dashed var(--line);font-size:17px!important;font-weight:700;color:var(--navy)}.report-deposit--ok{color:#278d48}.report-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.report-empty{padding:28px 12px;text-align:center;color:var(--muted);font-size:14px}
     @media(max-width:720px){.shell{padding:0}.receipt{min-height:100vh;border-radius:0;box-shadow:none}.welcome{grid-template-columns:1fr;gap:17px}.view{min-height:100vh;padding:31px 21px}.hero-logo{order:-1;width:82%;justify-self:center}.hero-logo:after{width:140px;height:140px}.form-panel{padding:22px}.app-view{min-height:100vh;display:flex;flex-direction:column;grid-template-columns:1fr;grid-template-rows:auto auto 1fr}.app-head{padding:16px 17px 12px;grid-row:auto;min-height:0}.app-head:before{width:160px;height:160px;right:-80px;top:-60px}.app-head:after{width:110px;height:110px;left:-50px;bottom:-30px}.app-head__top{margin-bottom:10px}.app-logo{width:min(54vw,188px)}.header-actions{position:absolute;right:17px;bottom:12px;margin:0;padding:0}.app-head .nav-menu{display:none}.section-tabs{display:block;padding:10px 12px 0;position:sticky;top:0;z-index:2}.section-tabs .nav-menu{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0;padding-bottom:10px}.section-tabs .nav-item{flex-direction:column;justify-content:center;gap:4px;color:var(--muted);padding:8px 4px 10px;text-align:center;font-size:10px;border-radius:14px}.section-tabs .nav-item .nav-icon{width:auto;height:auto;color:var(--blue)}.section-tabs .nav-item .nav-icon svg{width:17px;height:17px}.section-tabs .nav-item--active{color:var(--blue);background:#e8efff;box-shadow:none}.section-tabs .nav-item--active .nav-icon{color:var(--blue)}.app-body{grid-column:auto;padding-bottom:24px}.list-area{padding:22px 17px 100px}.item{min-height:65px}.list-meta strong{font-size:23px}.add-bar{width:100%;bottom:0;padding:11px 17px calc(11px + env(safe-area-inset-bottom))}.summary-grid{grid-template-columns:1fr}.expense-form{grid-template-columns:1fr 1fr}.expense-form input:first-child{grid-column:1/-1}.expense-form .button{grid-column:1/-1}.finance-content{padding-bottom:15px}.report-columns{grid-template-columns:1fr}.report-table{font-size:10px}.report-actions .button{flex:1}} @media(min-width:721px){.welcome .form-panel{max-width:440px}.section-tabs{display:none}}
   </style>
 </head>
@@ -57,7 +57,9 @@
       const isValidCode = code => /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/.test(code);
       const configured = () => Boolean(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY);
       const demoMode = () => CONFIG.MOCK_MODE === true;
-      const state = { session:null, items:[], sharedExpenses:[], personalExpenses:[], boughtOpen:false, activeSection:"market", client:null, channel:null, loading:false };
+      const state = { session:null, items:[], sharedExpenses:[], sharedPeriod:null, personalExpenses:[], boughtOpen:false, activeSection:"market", client:null, channel:null, loading:false };
+      const sharedPeriodOpen = () => state.sharedPeriod?.status === "aberto";
+      const sharedPeriodClosed = () => state.sharedPeriod?.status === "fechado";
       const getHashSession = () => {
         const params = new URLSearchParams(location.hash.slice(1));
         const code = validCode(params.get("c"));
@@ -149,33 +151,32 @@
           return humanDate(raw);
         } catch { return ""; }
       };
-      const otherPersonName = expenses => {
-        const me = state.session.name;
-        const payers = [...new Set(expenses.map(item => item.pago_por).filter(Boolean))];
-        return payers.find(name => name !== me) || "Outra pessoa";
+      const periodLabel = period => {
+        const stamp = period?.fechado_em || period?.created_at || new Date().toISOString();
+        const month = new Intl.DateTimeFormat("pt-BR",{month:"long",year:"numeric"}).format(new Date(stamp));
+        return `Período ${period?.numero || 1} · ${month}`;
       };
       const reportTableRows = expenses => expenses.length
         ? expenses.map(expense => `<tr><td>${escapeHtml(expense.descricao)}</td><td>${escapeHtml(expense.pago_por)}</td><td>${dateOnly(expense.data || expense.created_at)}</td><td class="mono">${money(expense.valor)}</td><td class="mono">${money(Number(expense.valor) / 2)}</td></tr>`).join("")
-        : `<tr><td colspan="5" class="report-empty">Nenhum lançamento aqui</td></tr>`;
+        : `<tr><td colspan="5" class="report-empty">Nenhum lançamento neste período</td></tr>`;
+      const buildPeriodBar = () => {
+        const period = state.sharedPeriod;
+        if (!period) return "";
+        const open = sharedPeriodOpen();
+        const badge = open ? `<span class="period-badge period-badge--open">Mês aberto</span>` : `<span class="period-badge period-badge--closed">Mês fechado</span>`;
+        const actions = open
+          ? button("Fechar conta", "close-shared-period", "button--outline button--small")
+          : `<div class="period-actions">${button("Reabrir o mês", "reopen-shared-period", "button--outline button--small")} ${button("Iniciar mês", "start-shared-period", "button--small")}</div>`;
+        return `<div class="period-bar">${badge}<span class="period-label">${periodLabel(period)}</span>${actions}</div>`;
+      };
       const buildSharedReport = () => {
-        const expenses = state.sharedExpenses, me = state.session.name, other = otherPersonName(expenses);
-        const minePaid = expenses.filter(expense => expense.pago_por === me);
-        const otherPaid = expenses.filter(expense => expense.pago_por !== me);
+        const expenses = state.sharedExpenses, me = state.session.name, period = state.sharedPeriod;
         const total = expenses.reduce((sum, expense) => sum + Number(expense.valor), 0);
         const half = total / 2;
-        const paidByMe = minePaid.reduce((sum, expense) => sum + Number(expense.valor), 0);
-        const paidByOther = otherPaid.reduce((sum, expense) => sum + Number(expense.valor), 0);
-        const deposit = Math.max(0, half - paidByMe);
-        const credit = Math.max(0, paidByMe - half);
         const today = new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"long",year:"numeric"}).format(new Date());
-        const depositLine = !expenses.length
-          ? `<p class="report-deposit">Adicione gastos para ver o acerto.</p>`
-          : deposit > 0
-            ? `<p class="report-deposit">Quanto eu tenho que depositar: <strong>${money(deposit)}</strong></p>`
-            : credit > 0
-              ? `<p class="report-deposit report-deposit--ok">Você não precisa depositar. <strong>${escapeHtml(other)}</strong> deve <strong>${money(credit)}</strong> para você.</p>`
-              : `<p class="report-deposit report-deposit--ok">Tudo certo — ninguém deve nada agora.</p>`;
-        return `<div class="report-actions">${button("Compartilhar relatório ↗","share-shared-report")}</div><section class="shared-report" id="shared-report"><div class="report-header"><img src="icons/logo-transparent.png" alt="KLB Finance Market"><h3>Relatório — Conta compartilhada</h3><p>Casa ${escapeHtml(state.session.code)} · ${escapeHtml(me)} · ${today}</p></div><div class="report-body">${expenses.length ? `<div class="report-columns"><div class="report-col"><h4>Minha parte (${escapeHtml(me)})</h4><table class="report-table"><thead><tr><th>Descrição</th><th>Quem pagou</th><th>Data</th><th>Total</th><th>Metade</th></tr></thead><tbody>${reportTableRows(minePaid)}</tbody></table><p class="report-col-sub">Paguei no total: <strong>${money(paidByMe)}</strong></p></div><div class="report-col"><h4>Sua parte (${escapeHtml(other)})</h4><table class="report-table"><thead><tr><th>Descrição</th><th>Quem pagou</th><th>Data</th><th>Total</th><th>Metade</th></tr></thead><tbody>${reportTableRows(otherPaid)}</tbody></table><p class="report-col-sub">${escapeHtml(other)} pagou: <strong>${money(paidByOther)}</strong></p></div></div><div class="report-totals"><p>Soma da minha parte (50%): <strong>${money(half)}</strong></p><p>Soma da parte de ${escapeHtml(other)}: <strong>${money(half)}</strong></p><p>Total da casa: <strong>${money(total)}</strong></p>${depositLine}</div>` : `<div class="report-empty">Nenhum gasto ainda. Adicione o primeiro lançamento abaixo.</div>`}</div></section>`;
+        const shareBtn = sharedPeriodClosed() && expenses.length ? button("Compartilhar relatório ↗", "share-shared-report") : "";
+        const hint = sharedPeriodOpen() ? `<p class="help" style="margin:0 0 12px">Feche a conta para liberar o compartilhamento do relatório.</p>` : "";
+        return `${hint}<div class="report-actions">${shareBtn}</div><section class="shared-report" id="shared-report"><div class="report-header"><img src="icons/logo-transparent.png" alt="KLB Finance Market"><h3>Relatório — Conta compartilhada</h3><p>Casa ${escapeHtml(state.session.code)} · ${periodLabel(period)} · ${today}</p></div><div class="report-body">${expenses.length ? `<table class="report-table"><thead><tr><th>Descrição</th><th>Quem pagou</th><th>Data</th><th>Total</th><th>Minha parte</th></tr></thead><tbody>${reportTableRows(expenses)}</tbody></table><div class="report-totals"><p>Soma da minha parte (50%): <strong>${money(half)}</strong></p><p>Soma da outra parte (50%): <strong>${money(half)}</strong></p><p>Total da casa: <strong>${money(total)}</strong></p></div>` : `<div class="report-empty">Nenhum gasto neste período.</div>`}</div></section>`;
       };
       const navIcons = {
         market: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.4 8.2H7.4L6 6Z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="19" r="1.2"/><circle cx="17" cy="19" r="1.2"/></svg>',
@@ -188,12 +189,14 @@
         const empty = `<div class="empty"><span class="empty-mark">+</span><p>Prontos para encher a sacola?<br>Comece pelo que está faltando.</p></div>`;
         return `<main class="list-area market-content"><div class="list-meta"><div><strong>Para comprar</strong><span>O que falta para vocês?</span></div><span class="count">${pending.length}</span></div>${pending.length ? `<ul class="items">${pending.map(itemTemplate).join("")}</ul>` : empty}${bought.length ? `<section class="bought-section"><button type="button" class="bought-toggle" data-action="toggle-bought"><span>✓ Já foram (${bought.length})</span><span>${state.boughtOpen ? "esconder −" : "ver itens +"}</span></button>${state.boughtOpen ? `<ul class="items">${bought.map(itemTemplate).join("")}</ul><div class="clear-row">${button("Limpar concluídos","clear-bought","button--outline button--small button--stamp")}</div>` : ""}</section>` : ""}</main><form class="add-bar" data-form="add-item"><input id="new-item" maxlength="60" autocomplete="off" placeholder="Ex.: café, tomate, pão…" aria-label="Novo item"><input id="new-qty" class="qty-input" inputmode="decimal" autocomplete="off" value="1" aria-label="Quantidade" placeholder="Qtd"><button class="button" type="submit">Adicionar <span>+</span></button></form>`;
       };
-      const expenseItem = (expense, personal = false) => `<li class="item expense-item"><div class="expense-main"><div class="expense-top"><div class="item-name">${escapeHtml(expense.descricao)}</div><span class="expense-amount">${money(expense.valor)}</span></div><div class="expense-detail">${personal ? "Lançamento pessoal" : `Pago por ${escapeHtml(expense.pago_por)}`} · ${humanDate(expense.data || expense.created_at)}</div><div class="expense-actions"><button type="button" class="expense-edit" data-action="edit-expense" data-id="${escapeHtml(expense.id)}" data-private="${personal}">Editar</button><button type="button" class="expense-edit expense-edit--delete" data-action="delete-expense" data-id="${escapeHtml(expense.id)}" data-private="${personal}">Excluir</button></div></div></li>`;
+      const expenseItem = (expense, personal = false, locked = false) => `<li class="item expense-item"><div class="expense-main"><div class="expense-top"><div class="item-name">${escapeHtml(expense.descricao)}</div><span class="expense-amount">${money(expense.valor)}</span></div><div class="expense-detail">${personal ? "Lançamento pessoal" : `Pago por ${escapeHtml(expense.pago_por)}`} · ${humanDate(expense.data || expense.created_at)}</div>${locked ? "" : `<div class="expense-actions"><button type="button" class="expense-edit" data-action="edit-expense" data-id="${escapeHtml(expense.id)}" data-private="${personal}">Editar</button><button type="button" class="expense-edit expense-edit--delete" data-action="delete-expense" data-id="${escapeHtml(expense.id)}" data-private="${personal}">Excluir</button></div>`}</div></li>`;
       const expenseForm = personal => `<form class="expense-form" data-form="${personal ? "add-personal-expense" : "add-shared-expense"}"><input id="${personal ? "personal" : "shared"}-description" maxlength="60" placeholder="Descrição"><input id="${personal ? "personal" : "shared"}-amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="R$ 0,00">${personal ? "" : `<input id="shared-payer" maxlength="30" value="${escapeHtml(state.session.name)}" placeholder="Quem pagou">`}<input id="${personal ? "personal" : "shared"}-date" type="date" value="${new Date().toISOString().slice(0,10)}"><button type="submit" class="button">Adicionar +</button></form>`;
       const sharedContent = () => {
-        const total=state.sharedExpenses.reduce((sum,item)=>sum+Number(item.valor),0), paid=state.sharedExpenses.reduce((map,item)=>({...map,[item.pago_por]:(map[item.pago_por]||0)+Number(item.valor)}),{}), people=Object.keys(paid);
-        const balance=people.length>=2 ? (()=>{const [a,b]=people;const diff=paid[a]-paid[b];return diff===0?"Tudo certo: divisão equilibrada.":diff>0?`${escapeHtml(b)} deve ${money(diff/2)} para ${escapeHtml(a)}.`:`${escapeHtml(a)} deve ${money(Math.abs(diff)/2)} para ${escapeHtml(b)}.`})():"Adicione gastos de vocês dois para ver quem fica devendo.";
-        return `<main class="list-area finance-content"><p class="eyebrow">A dois</p><h2 class="section-title">Conta compartilhada</h2><p class="section-subtitle">Cada gasto entra pela metade para cada pessoa.</p><div class="summary-grid"><section class="summary-card summary-card--hero"><span class="summary-label">Acerto da dupla</span><strong class="summary-value">${money(total)}</strong><p class="summary-note">${balance}</p></section><section class="summary-card"><span class="summary-label">Sua parte do total</span><strong class="summary-value">${money(total/2)}</strong></section><section class="summary-card"><span class="summary-label">Lançamentos</span><strong class="summary-value">${state.sharedExpenses.length}</strong></section></div>${buildSharedReport()}${expenseForm(false)}${state.sharedExpenses.length?`<ul class="items">${state.sharedExpenses.map(item=>expenseItem(item)).join("")}</ul>`:`<div class="empty"><span class="empty-mark">◒</span><p>Nenhuma conta ainda.<br>Comece com o primeiro gasto da casa.</p></div>`}</main>`;
+        const total = state.sharedExpenses.reduce((sum, item) => sum + Number(item.valor), 0);
+        const open = sharedPeriodOpen();
+        const note = open ? "Mês aberto — lance os gastos e feche quando terminar." : "Mês fechado — compartilhe o relatório ou reabra para ajustar.";
+        const locked = sharedPeriodClosed();
+        return `<main class="list-area finance-content"><p class="eyebrow">A dois</p><h2 class="section-title">Conta compartilhada</h2><p class="section-subtitle">Cada gasto entra pela metade para cada pessoa.</p>${buildPeriodBar()}<div class="summary-grid"><section class="summary-card summary-card--hero"><span class="summary-label">Total do período</span><strong class="summary-value">${money(total)}</strong><p class="summary-note">${note}</p></section><section class="summary-card"><span class="summary-label">Sua parte do total</span><strong class="summary-value">${money(total / 2)}</strong></section><section class="summary-card"><span class="summary-label">Lançamentos</span><strong class="summary-value">${state.sharedExpenses.length}</strong></section></div>${buildSharedReport()}${open ? expenseForm(false) : ""}${state.sharedExpenses.length ? `<ul class="items">${state.sharedExpenses.map(item => expenseItem(item, false, locked)).join("")}</ul>` : `<div class="empty"><span class="empty-mark">◒</span><p>${open ? "Nenhuma conta ainda.<br>Comece com o primeiro gasto da casa." : "Este período está fechado.<br>Inicie um mês novo para lançar gastos."}</p></div>`}</main>`;
       };
       const personalContent = () => {
         const routed=getHashSession(), activeName=routed?.name || state.session.name, samePerson=activeName===state.session.name, expenses=samePerson?state.personalExpenses:[], total=expenses.reduce((sum,item)=>sum+Number(item.valor),0);
@@ -211,7 +214,7 @@
         return state.client;
       };
       const mockStore = () => {
-        try { const data=JSON.parse(localStorage.getItem("klb-market-demo-data") || '{"lists":{},"items":{},"sharedExpenses":{},"personalExpenses":{}}'); return {...data,sharedExpenses:data.sharedExpenses||{},personalExpenses:data.personalExpenses||{}}; } catch { return {lists:{},items:{},sharedExpenses:{},personalExpenses:{}}; }
+        try { const data=JSON.parse(localStorage.getItem("klb-market-demo-data") || '{"lists":{},"items":{},"sharedExpenses":{},"sharedPeriods":{},"personalExpenses":{}}'); return {...data,sharedExpenses:data.sharedExpenses||{},sharedPeriods:data.sharedPeriods||{},personalExpenses:data.personalExpenses||{}}; } catch { return {lists:{},items:{},sharedExpenses:{},sharedPeriods:{},personalExpenses:{}}; }
       };
       const saveMock = data => localStorage.setItem("klb-market-demo-data", JSON.stringify(data));
       const api = {
@@ -244,9 +247,81 @@
           if (demoMode()) { const data=mockStore(); data.items[code]=(data.items[code]||[]).filter(item=>!item.comprado); saveMock(data); return; }
           const { error } = await initClient().from("itens_lista").delete().eq("lista_codigo",code).eq("comprado",true); if(error) throw error;
         },
-        async getSharedExpenses(code) {
-          if (demoMode()) return mockStore().sharedExpenses[code] || [];
-          const { data,error }=await initClient().from("despesas_compartilhadas").select("*").eq("lista_codigo",code).order("data",{ascending:false}); if(error) throw error; return data||[];
+        async loadSharedPeriod(code) {
+          if (demoMode()) {
+            const data = mockStore();
+            const periods = data.sharedPeriods[code] || [];
+            const aberto = periods.find(period => period.status === "aberto");
+            if (aberto) return aberto;
+            const fechados = periods.filter(period => period.status === "fechado").sort((a, b) => new Date(b.fechado_em) - new Date(a.fechado_em));
+            if (fechados[0]) return fechados[0];
+            const first = { id: crypto.randomUUID(), lista_codigo: code, status: "aberto", numero: 1, created_at: new Date().toISOString(), fechado_em: null };
+            data.sharedPeriods[code] = [first];
+            saveMock(data);
+            return first;
+          }
+          const { data: aberto, error: openError } = await initClient().from("periodos_compartilhados").select("*").eq("lista_codigo", code).eq("status", "aberto").maybeSingle();
+          if (openError) throw openError;
+          if (aberto) return aberto;
+          const { data: fechados, error: closedError } = await initClient().from("periodos_compartilhados").select("*").eq("lista_codigo", code).eq("status", "fechado").order("fechado_em", { ascending: false }).limit(1);
+          if (closedError) throw closedError;
+          if (fechados?.[0]) return fechados[0];
+          const { data: created, error: createError } = await initClient().from("periodos_compartilhados").insert({ lista_codigo: code, status: "aberto", numero: 1 }).select().single();
+          if (createError) throw createError;
+          return created;
+        },
+        async hasOpenSharedPeriod(code) {
+          if (demoMode()) return (mockStore().sharedPeriods[code] || []).some(period => period.status === "aberto");
+          const { data, error } = await initClient().from("periodos_compartilhados").select("id").eq("lista_codigo", code).eq("status", "aberto").maybeSingle();
+          if (error) throw error;
+          return Boolean(data);
+        },
+        async getSharedExpenses(code, periodoId) {
+          if (demoMode()) return (mockStore().sharedExpenses[code] || []).filter(expense => expense.periodo_id === periodoId);
+          const { data, error } = await initClient().from("despesas_compartilhadas").select("*").eq("lista_codigo", code).eq("periodo_id", periodoId).order("data", { ascending: false });
+          if (error) throw error;
+          return data || [];
+        },
+        async closeSharedPeriod(id) {
+          if (demoMode()) {
+            const data = mockStore();
+            Object.keys(data.sharedPeriods).forEach(code => {
+              data.sharedPeriods[code] = data.sharedPeriods[code].map(period => period.id === id ? { ...period, status: "fechado", fechado_em: new Date().toISOString() } : period);
+            });
+            saveMock(data);
+            return;
+          }
+          const { error } = await initClient().from("periodos_compartilhados").update({ status: "fechado", fechado_em: new Date().toISOString() }).eq("id", id).eq("status", "aberto");
+          if (error) throw error;
+        },
+        async reopenSharedPeriod(id) {
+          if (demoMode()) {
+            const data = mockStore();
+            Object.keys(data.sharedPeriods).forEach(code => {
+              data.sharedPeriods[code] = data.sharedPeriods[code].map(period => period.id === id ? { ...period, status: "aberto", fechado_em: null } : period);
+            });
+            saveMock(data);
+            return;
+          }
+          const { error } = await initClient().from("periodos_compartilhados").update({ status: "aberto", fechado_em: null }).eq("id", id).eq("status", "fechado");
+          if (error) throw error;
+        },
+        async startSharedPeriod(code) {
+          if (demoMode()) {
+            const data = mockStore();
+            const periods = data.sharedPeriods[code] || [];
+            const numero = periods.reduce((max, period) => Math.max(max, Number(period.numero) || 0), 0) + 1;
+            const next = { id: crypto.randomUUID(), lista_codigo: code, status: "aberto", numero, created_at: new Date().toISOString(), fechado_em: null };
+            data.sharedPeriods[code] = [...periods, next];
+            saveMock(data);
+            return next;
+          }
+          const { data: latest, error: latestError } = await initClient().from("periodos_compartilhados").select("numero").eq("lista_codigo", code).order("numero", { ascending: false }).limit(1).maybeSingle();
+          if (latestError) throw latestError;
+          const numero = (latest?.numero || 0) + 1;
+          const { data: created, error: createError } = await initClient().from("periodos_compartilhados").insert({ lista_codigo: code, status: "aberto", numero }).select().single();
+          if (createError) throw createError;
+          return created;
         },
         async getPersonalExpenses(code, owner) {
           if (demoMode()) return mockStore().personalExpenses[`${code}:${owner}`] || [];
@@ -270,13 +345,27 @@
       };
       const refreshItems = async (quiet = false) => {
         if (!state.session) return;
-        try { const [items,sharedExpenses,personalExpenses]=await Promise.all([api.getItems(state.session.code),api.getSharedExpenses(state.session.code),api.getPersonalExpenses(state.session.code,state.session.name)]); state.items=sortItems(items); state.sharedExpenses=sharedExpenses; state.personalExpenses=personalExpenses; renderApp(); if(!quiet) toast("Dados atualizados."); }
+        try {
+          const sharedPeriod = await api.loadSharedPeriod(state.session.code);
+          const [items, sharedExpenses, personalExpenses] = await Promise.all([
+            api.getItems(state.session.code),
+            api.getSharedExpenses(state.session.code, sharedPeriod.id),
+            api.getPersonalExpenses(state.session.code, state.session.name)
+          ]);
+          state.items = sortItems(items);
+          state.sharedPeriod = sharedPeriod;
+          state.sharedExpenses = sharedExpenses;
+          state.personalExpenses = personalExpenses;
+          renderApp();
+          if (!quiet) toast("Dados atualizados.");
+        }
         catch (error) { if (state.session) renderApp(); toast(`Não deu para atualizar: ${error.message || "tente de novo"}`, "error"); }
       };
       const subscribe = () => {
         if (demoMode() || !state.client || state.channel) return;
         state.channel = state.client.channel(`lista-${state.session.code}`)
           .on("postgres_changes",{event:"*",schema:"public",table:"itens_lista",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
+          .on("postgres_changes",{event:"*",schema:"public",table:"periodos_compartilhados",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
           .on("postgres_changes",{event:"*",schema:"public",table:"despesas_compartilhadas",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
           .on("postgres_changes",{event:"*",schema:"public",table:"despesas_pessoais",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
           .subscribe(status => { if (status === "CHANNEL_ERROR") toast("A sincronização caiu. Use atualizar se precisar.", "error"); });
@@ -395,11 +484,13 @@
         const prefix=personal?"personal":"shared", descricao=String($(`#${prefix}-description`)?.value||"").trim().replace(/\s+/g," ").slice(0,60), valor=amountFrom($(`#${prefix}-amount`)?.value), data=$(`#${prefix}-date`)?.value;
         const pago_por=personal?state.session.name:validName($("#shared-payer")?.value);
         if(!descricao || !Number.isFinite(valor) || valor<=0 || !/^\d{4}-\d{2}-\d{2}$/.test(data||"") || pago_por.length<2) return toast("Preencha descrição, valor, pessoa e data.", "error");
-        try { await api.addExpense(personal?{lista_codigo:state.session.code,dono:state.session.name,descricao,valor,data}:{lista_codigo:state.session.code,descricao,valor,pago_por,data},personal); await refreshItems(true); playSound("add"); toast(personal?"Lançamento pessoal adicionado.":"Gasto da casa adicionado."); }
+        if (!personal && !sharedPeriodOpen()) return toast("Este mês está fechado. Reabra ou inicie um mês novo.", "error");
+        try { await api.addExpense(personal?{lista_codigo:state.session.code,dono:state.session.name,descricao,valor,data}:{lista_codigo:state.session.code,periodo_id:state.sharedPeriod.id,descricao,valor,pago_por,data},personal); await refreshItems(true); playSound("add"); toast(personal?"Lançamento pessoal adicionado.":"Gasto da casa adicionado."); }
         catch(error) { toast(`Não foi possível salvar: ${error.message || "tente de novo"}`, "error"); }
       };
       const editExpense = async (id, personal) => {
         const item=(personal?state.personalExpenses:state.sharedExpenses).find(expense=>expense.id===id); if(!item) return;
+        if (!personal && !sharedPeriodOpen()) return toast("Este mês está fechado. Reabra para editar.", "error");
         const descricao=String(prompt("Descrição do lançamento:",item.descricao) || "").trim().slice(0,60); if(!descricao) return;
         const valor=amountFrom(prompt("Valor em reais:",item.valor)); if(!Number.isFinite(valor)||valor<=0) return toast("Valor inválido.", "error");
         const data=prompt("Data (AAAA-MM-DD):",item.data); if(!/^\d{4}-\d{2}-\d{2}$/.test(data||"")) return toast("Data inválida.", "error");
@@ -413,8 +504,30 @@
         try { if(navigator.share) await navigator.share(shareData); else { await navigator.clipboard.writeText(url); toast("Convite copiado!"); } }
         catch(error) { if(error.name!=="AbortError") { try { await navigator.clipboard.writeText(url); toast("Convite copiado!"); } catch { toast(`Código da lista: ${state.session.code}`); } } }
       };
+      const closeSharedPeriod = async () => {
+        if (!sharedPeriodOpen()) return;
+        if (!state.sharedExpenses.length) return toast("Adicione pelo menos um gasto antes de fechar.", "error");
+        if (!confirm("Fechar este mês? Depois não dá para lançar novos gastos até reabrir ou iniciar outro.")) return;
+        try { await api.closeSharedPeriod(state.sharedPeriod.id); await refreshItems(true); toast("Conta fechada. Agora você pode compartilhar o relatório."); }
+        catch { toast("Não foi possível fechar a conta.", "error"); }
+      };
+      const reopenSharedPeriod = async () => {
+        if (!sharedPeriodClosed()) return;
+        if (await api.hasOpenSharedPeriod(state.session.code)) return toast("Já existe um mês aberto.", "error");
+        if (!confirm("Reabrir este mês? Você poderá editar e lançar de novo.")) return;
+        try { await api.reopenSharedPeriod(state.sharedPeriod.id); await refreshItems(true); toast("Mês reaberto."); }
+        catch { toast("Não foi possível reabrir o mês.", "error"); }
+      };
+      const startSharedPeriod = async () => {
+        if (!sharedPeriodClosed()) return;
+        if (await api.hasOpenSharedPeriod(state.session.code)) return toast("Já existe um mês aberto.", "error");
+        if (!confirm("Iniciar um mês novo? A lista começa vazia para novos gastos.")) return;
+        try { await api.startSharedPeriod(state.session.code); await refreshItems(true); toast("Novo mês iniciado."); }
+        catch { toast("Não foi possível iniciar o mês.", "error"); }
+      };
       const shareSharedReport = async () => {
         const element = document.getElementById("shared-report");
+        if (!sharedPeriodClosed()) return toast("Feche a conta antes de compartilhar o relatório.", "error");
         if (!element || !state.sharedExpenses.length) return toast("Não há gastos para compartilhar.", "error");
         if (!globalThis.html2canvas) return toast("Aguarde o app carregar e tente de novo.", "error");
         try {
@@ -442,7 +555,8 @@
         "refresh-list":() => refreshItems(), "nav-market":()=>{state.activeSection="market";renderApp();}, "nav-shared":()=>{state.activeSection="shared";renderApp();}, "nav-personal":()=>{state.activeSection="personal";renderApp();}, "toggle-bought":() => {state.boughtOpen=!state.boughtOpen;renderApp();},
         "toggle-item":button => toggleItem(button.dataset.id), "edit-item":button => editItem(button.dataset.id), "delete-item":async button => { if(confirm("Excluir este item da lista?")) { try { await api.deleteItem(button.dataset.id); await refreshItems(true); playSound("delete"); } catch { toast("Não foi possível excluir esse item.","error"); } } },
         "clear-bought":async () => { if(confirm("Limpar todos os itens comprados?")) { try { await api.clearBought(state.session.code); await refreshItems(true); playSound("clear"); toast("Itens comprados removidos."); } catch { toast("Não foi possível limpar a lista.","error"); } } },
-        "edit-expense":button=>editExpense(button.dataset.id,button.dataset.private==="true"), "delete-expense":async button=>{const personal=button.dataset.private==="true";if(confirm("Excluir este lançamento?")){try{await api.deleteExpense(button.dataset.id,personal);await refreshItems(true);playSound("delete");toast("Lançamento excluído.");}catch{toast("Não foi possível excluir o lançamento.","error");}}},
+        "edit-expense":button=>editExpense(button.dataset.id,button.dataset.private==="true"), "delete-expense":async button=>{const personal=button.dataset.private==="true";if(!personal&&!sharedPeriodOpen())return toast("Este mês está fechado. Reabra para excluir.","error");if(confirm("Excluir este lançamento?")){try{await api.deleteExpense(button.dataset.id,personal);await refreshItems(true);playSound("delete");toast("Lançamento excluído.");}catch{toast("Não foi possível excluir o lançamento.","error");}}},
+        "close-shared-period":closeSharedPeriod, "reopen-shared-period":reopenSharedPeriod, "start-shared-period":startSharedPeriod,
         "share-list":share, "share-shared-report":shareSharedReport, "leave-list":() => { disconnect(); clearSession(); renderWelcome(); toast("Você saiu da lista."); }, "back-home":() => { clearSession(); renderWelcome(); }
       };
       const bindEvents = () => {
@@ -452,7 +566,7 @@
         const followHashSession = () => {
           const next=getHashSession();
           if(!next) {
-            if(state.session) { disconnect(); state.session=null; state.items=[]; state.sharedExpenses=[]; state.personalExpenses=[]; renderWelcome(); toast("Código da casa inválido.", "error"); }
+            if(state.session) { disconnect(); state.session=null; state.items=[]; state.sharedExpenses=[]; state.sharedPeriod=null; state.personalExpenses=[]; renderWelcome(); toast("Código da casa inválido.", "error"); }
             return;
           }
           if(state.session && next.code===state.session.code && next.name===state.session.name) return;
