@@ -57,22 +57,47 @@
       const isValidCode = code => /^[ABCDEFGHJKLMNPQRSTUVWXYZ23456789]{6}$/.test(code);
       const configured = () => Boolean(CONFIG.SUPABASE_URL && CONFIG.SUPABASE_ANON_KEY);
       const demoMode = () => CONFIG.MOCK_MODE === true;
+      const SECTIONS = ["market", "shared", "personal"];
       const state = { session:null, items:[], sharedExpenses:[], sharedPeriod:null, personalExpenses:[], boughtOpen:false, activeSection:"market", client:null, channel:null, loading:false };
+      let reconnectTimer = null;
       const sharedPeriodOpen = () => state.sharedPeriod?.status === "aberto";
       const sharedPeriodClosed = () => state.sharedPeriod?.status === "fechado";
-      const getHashSession = () => {
+      const sessionHash = (session, section = "market") => `c=${encodeURIComponent(session.code)}&n=${encodeURIComponent(session.name)}&s=${SECTIONS.includes(section) ? section : "market"}`;
+      const parseHash = () => {
         const params = new URLSearchParams(location.hash.slice(1));
         const code = validCode(params.get("c"));
         const name = validName(params.get("n"));
-        return isValidCode(code) ? { code, name } : null;
+        const section = params.get("s");
+        return isValidCode(code) && name.length >= 2 ? { code, name, section: SECTIONS.includes(section) ? section : "market" } : null;
+      };
+      const getHashSession = () => {
+        const parsed = parseHash();
+        return parsed ? { code: parsed.code, name: parsed.name } : null;
+      };
+      const applySessionHash = (session, section, mode = "replace") => {
+        const hash = `#${sessionHash(session, section)}`;
+        const snapshot = { klb: true, section };
+        if (mode === "push") history.pushState(snapshot, "", hash);
+        else history.replaceState(snapshot, "", hash);
+      };
+      const restoreSessionHash = () => {
+        if (!state.session) return;
+        applySessionHash(state.session, state.activeSection, "replace");
       };
       const setSession = session => {
         state.session = session;
+        state.activeSection = "market";
         localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
-        location.hash = `c=${encodeURIComponent(session.code)}&n=${encodeURIComponent(session.name)}`;
+        applySessionHash(session, "market", "replace");
       };
       const cachedSession = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null"); } catch { return null; } };
       const clearSession = () => { localStorage.removeItem(STORAGE_KEY); history.replaceState(null, "", location.pathname + location.search); state.session = null; };
+      const goToSection = (section, pushHistory = true) => {
+        if (!state.session || !SECTIONS.includes(section)) return;
+        state.activeSection = section;
+        applySessionHash(state.session, section, pushHistory ? "push" : "replace");
+        renderApp();
+      };
       const humanDate = iso => { try { return new Intl.DateTimeFormat("pt-BR",{day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit"}).format(new Date(iso)); } catch { return ""; } };
       const generateCode = () => Array.from({length:6}, () => CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)]).join("");
       const app = () => $("#app");
@@ -361,14 +386,28 @@
         }
         catch (error) { if (state.session) renderApp(); toast(`Não deu para atualizar: ${error.message || "tente de novo"}`, "error"); }
       };
+      const scheduleReconnect = () => {
+        if (reconnectTimer || !state.session || demoMode()) return;
+        reconnectTimer = setTimeout(() => {
+          reconnectTimer = null;
+          if (state.session) subscribe();
+        }, 2000);
+      };
       const subscribe = () => {
-        if (demoMode() || !state.client || state.channel) return;
+        if (demoMode() || !state.client || !state.session) return;
+        disconnect(false);
         state.channel = state.client.channel(`lista-${state.session.code}`)
           .on("postgres_changes",{event:"*",schema:"public",table:"itens_lista",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
           .on("postgres_changes",{event:"*",schema:"public",table:"periodos_compartilhados",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
           .on("postgres_changes",{event:"*",schema:"public",table:"despesas_compartilhadas",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
           .on("postgres_changes",{event:"*",schema:"public",table:"despesas_pessoais",filter:`lista_codigo=eq.${state.session.code}`},() => refreshItems(true))
-          .subscribe(status => { if (status === "CHANNEL_ERROR") toast("A sincronização caiu. Use atualizar se precisar.", "error"); });
+          .subscribe(status => {
+            if (status === "SUBSCRIBED" && reconnectTimer) {
+              clearTimeout(reconnectTimer);
+              reconnectTimer = null;
+            }
+            if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") scheduleReconnect();
+          });
       };
       const urlBase64ToUint8Array = base64String => {
         const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -427,12 +466,27 @@
           });
         } catch {}
       };
-      const disconnect = () => { if (state.channel && state.client) state.client.removeChannel(state.channel); state.channel=null; };
+      const disconnect = (clearTimer = true) => {
+        if (clearTimer && reconnectTimer) {
+          clearTimeout(reconnectTimer);
+          reconnectTimer = null;
+        }
+        if (state.channel && state.client) state.client.removeChannel(state.channel);
+        state.channel = null;
+      };
       const openSession = async session => {
         renderLoading();
         try {
           if (!await api.listExists(session.code)) { toast("Não encontramos essa lista. Confira o código.", "error"); clearSession(); renderWelcome(); return; }
-          setSession(session); await refreshItems(true); subscribe(); ensurePush(session);
+          const hash = parseHash();
+          const section = hash?.code === session.code && hash?.name === session.name ? hash.section : "market";
+          state.session = session;
+          state.activeSection = section;
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
+          applySessionHash(session, section, "replace");
+          await refreshItems(true);
+          subscribe();
+          ensurePush(session);
         } catch (error) { renderWelcome(); toast(`Não foi possível abrir a lista: ${error.message || "erro de conexão"}`, "error"); }
       };
       const createList = async () => {
@@ -552,46 +606,85 @@
       };
       const actions = {
         "create-list":createList, "join-list":joinList, "accept-invite":acceptInvite, "add-item":addItem,
-        "refresh-list":() => refreshItems(), "nav-market":()=>{state.activeSection="market";renderApp();}, "nav-shared":()=>{state.activeSection="shared";renderApp();}, "nav-personal":()=>{state.activeSection="personal";renderApp();}, "toggle-bought":() => {state.boughtOpen=!state.boughtOpen;renderApp();},
+        "refresh-list":() => refreshItems(), "nav-market":() => goToSection("market"), "nav-shared":() => goToSection("shared"), "nav-personal":() => goToSection("personal"), "toggle-bought":() => {state.boughtOpen=!state.boughtOpen;renderApp();},
         "toggle-item":button => toggleItem(button.dataset.id), "edit-item":button => editItem(button.dataset.id), "delete-item":async button => { if(confirm("Excluir este item da lista?")) { try { await api.deleteItem(button.dataset.id); await refreshItems(true); playSound("delete"); } catch { toast("Não foi possível excluir esse item.","error"); } } },
         "clear-bought":async () => { if(confirm("Limpar todos os itens comprados?")) { try { await api.clearBought(state.session.code); await refreshItems(true); playSound("clear"); toast("Itens comprados removidos."); } catch { toast("Não foi possível limpar a lista.","error"); } } },
         "edit-expense":button=>editExpense(button.dataset.id,button.dataset.private==="true"), "delete-expense":async button=>{const personal=button.dataset.private==="true";if(!personal&&!sharedPeriodOpen())return toast("Este mês está fechado. Reabra para excluir.","error");if(confirm("Excluir este lançamento?")){try{await api.deleteExpense(button.dataset.id,personal);await refreshItems(true);playSound("delete");toast("Lançamento excluído.");}catch{toast("Não foi possível excluir o lançamento.","error");}}},
         "close-shared-period":closeSharedPeriod, "reopen-shared-period":reopenSharedPeriod, "start-shared-period":startSharedPeriod,
-        "share-list":share, "share-shared-report":shareSharedReport, "leave-list":() => { disconnect(); clearSession(); renderWelcome(); toast("Você saiu da lista."); }, "back-home":() => { clearSession(); renderWelcome(); }
+        "share-list":share, "share-shared-report":shareSharedReport, "leave-list":() => { if (!confirm("Sair desta casa? Os dados continuam salvos.")) return; disconnect(); clearSession(); renderWelcome(); toast("Você saiu da lista."); }, "back-home":() => { clearSession(); renderWelcome(); }
       };
       const bindEvents = () => {
         document.addEventListener("click", event => { unlockAudio(); const target=event.target.closest("[data-action]"); if(target) { event.preventDefault(); const action=actions[target.dataset.action]; if(action) action(target); } });
         document.addEventListener("keydown", event => { if(event.key==="Enter" && event.target.matches("[data-enter]")) { unlockAudio(); event.preventDefault(); const action=actions[event.target.dataset.enter]; if(action) action(event.target); } });
         document.addEventListener("submit", event => { if(event.target.matches("[data-form='add-item'],[data-form='add-shared-expense'],[data-form='add-personal-expense']")) { unlockAudio(); event.preventDefault(); if(event.target.dataset.form==="add-item") addItem(); else addExpense(event.target.dataset.form==="add-personal-expense"); } });
-        const followHashSession = () => {
-          const next=getHashSession();
-          if(!next) {
-            if(state.session) { disconnect(); state.session=null; state.items=[]; state.sharedExpenses=[]; state.sharedPeriod=null; state.personalExpenses=[]; renderWelcome(); toast("Código da casa inválido.", "error"); }
+        const syncFromHash = (allowSessionSwitch = true) => {
+          const next = parseHash();
+          if (!next) {
+            if (state.session) restoreSessionHash();
             return;
           }
-          if(state.session && next.code===state.session.code && next.name===state.session.name) return;
-          disconnect();
-          state.session=null;
-          openSession(next);
+          if (!state.session) {
+            if (next.name) openSession({ code: next.code, name: next.name });
+            else renderInvite(next.code);
+            return;
+          }
+          if (next.code !== state.session.code || next.name !== state.session.name) {
+            if (!allowSessionSwitch) {
+              restoreSessionHash();
+              return;
+            }
+            disconnect();
+            state.session = null;
+            openSession({ code: next.code, name: next.name });
+            return;
+          }
+          if (next.section !== state.activeSection) {
+            state.activeSection = next.section;
+            renderApp();
+          }
         };
-        window.addEventListener("hashchange", followHashSession);
-        window.addEventListener("popstate", followHashSession);
-        window.addEventListener("focus", followHashSession);
-        document.addEventListener("visibilitychange", () => { if(!document.hidden) followHashSession(); });
-        // Alguns navegadores de PWA não disparam hashchange ao voltar do seletor de URL.
-        // Esta checagem local não faz rede quando o link não mudou.
-        let observedHash=location.hash;
-        setInterval(() => {
-          if(location.hash!==observedHash) { observedHash=location.hash; followHashSession(); }
-        }, 350);
+        const handlePopState = () => {
+          if (!state.session) {
+            syncFromHash(true);
+            return;
+          }
+          const next = parseHash();
+          if (!next || next.code !== state.session.code || next.name !== state.session.name) {
+            restoreSessionHash();
+            return;
+          }
+          state.activeSection = next.section;
+          renderApp();
+        };
+        window.addEventListener("hashchange", () => syncFromHash(true));
+        window.addEventListener("popstate", handlePopState);
+        window.addEventListener("focus", () => {
+          if (state.session) {
+            restoreSessionHash();
+            subscribe();
+            ensurePush(state.session);
+          } else syncFromHash(true);
+        });
+        document.addEventListener("visibilitychange", () => {
+          if (document.hidden || !state.session) return;
+          restoreSessionHash();
+          subscribe();
+          ensurePush(state.session);
+          refreshItems(true);
+        });
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker.addEventListener("message", event => {
+            if (event.data?.type === "klb-navigate" && event.data.url) location.href = event.data.url;
+          });
+        }
       };
       const start = () => {
         if (!configured() && !demoMode()) return renderConfig();
         initClient();
-        const hash=getHashSession(), cache=cachedSession();
-        if(hash?.code && !hash.name) return renderInvite(hash.code);
-        if(hash?.code && hash.name) return openSession(hash);
-        if(cache?.code && cache?.name) return openSession(cache);
+        const hash = parseHash(), cache = cachedSession();
+        if (hash?.code && !hash.name) return renderInvite(hash.code);
+        if (hash?.code && hash.name) return openSession({ code: hash.code, name: hash.name });
+        if (cache?.code && cache?.name) return openSession(cache);
         renderWelcome();
       };
       const init = () => { bindEvents(); if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(()=>{}); start(); };

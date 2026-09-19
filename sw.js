@@ -1,4 +1,4 @@
-const CACHE_NAME = "klb-finance-v16";
+const CACHE_NAME = "klb-finance-v17";
 const APP_FILES = ["/", "/index.html", "/config.js", "/manifest.json", "/favicon.ico", "/icons/logo-transparent.png", "/icons/favicon-32.png", "/icons/apple-touch-icon.png", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/icon-maskable-192.png", "/icons/icon-maskable-512.png"];
 
 self.addEventListener("install", event => {
@@ -27,12 +27,17 @@ self.addEventListener("push", event => {
 self.addEventListener("notificationclick", event => {
   event.notification.close();
   const target = event.notification.data?.url || "/";
+  const absolute = new URL(target, self.location.origin).href;
   event.waitUntil(
     clients.matchAll({ type: "window", includeUncontrolled: true }).then(list => {
       for (const client of list) {
-        if (client.url.startsWith(self.location.origin) && "focus" in client) return client.focus();
+        if (!client.url.startsWith(self.location.origin)) continue;
+        if ("focus" in client) client.focus();
+        if ("navigate" in client) return client.navigate(absolute);
+        client.postMessage({ type: "klb-navigate", url: absolute });
+        return;
       }
-      if (clients.openWindow) return clients.openWindow(target);
+      if (clients.openWindow) return clients.openWindow(absolute);
     })
   );
 });
