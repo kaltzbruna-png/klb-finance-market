@@ -29,6 +29,17 @@ create table if not exists public.despesas_compartilhadas (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.push_inscricoes (
+  id uuid primary key default gen_random_uuid(),
+  lista_codigo text not null references public.listas(codigo) on delete cascade,
+  nome text not null check (char_length(nome) between 1 and 30),
+  endpoint text not null unique,
+  p256dh text not null,
+  auth text not null,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create table if not exists public.despesas_pessoais (
   id uuid primary key default gen_random_uuid(),
   lista_codigo text not null references public.listas(codigo) on delete cascade,
@@ -67,6 +78,7 @@ alter table public.listas enable row level security;
 alter table public.itens_lista enable row level security;
 alter table public.despesas_compartilhadas enable row level security;
 alter table public.despesas_pessoais enable row level security;
+alter table public.push_inscricoes enable row level security;
 
 -- O código compartilhado é o segredo desta aplicação, por isso a anon key
 -- recebe acesso aberto às duas tabelas. Não use este modelo para dados sensíveis.
@@ -87,6 +99,10 @@ create policy "anon pode acessar despesas compartilhadas" on public.despesas_com
 -- para que esta policy possa ser endurecida ao introduzir autenticação.
 drop policy if exists "anon pode acessar despesas pessoais" on public.despesas_pessoais;
 create policy "anon pode acessar despesas pessoais" on public.despesas_pessoais
+  for all to anon using (true) with check (true);
+
+drop policy if exists "anon pode acessar push inscricoes" on public.push_inscricoes;
+create policy "anon pode acessar push inscricoes" on public.push_inscricoes
   for all to anon using (true) with check (true);
 
 alter publication supabase_realtime add table public.itens_lista;
